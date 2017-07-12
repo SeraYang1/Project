@@ -13,7 +13,7 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Project" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -143,10 +143,10 @@
             </objects>
             <point key="canvasLocation" x="461.60000000000002" y="844.22788605697156"/>
         </scene>
-        <!--View Controller-->
+        <!--Downloaded Sketchpad-->
         <scene sceneID="Vdd-9M-WKW">
             <objects>
-                <viewController id="Baa-uM-i0I" sceneMemberID="viewController">
+                <viewController id="Baa-uM-i0I" customClass="DownloadedSketchpad" customModule="Project" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="QjQ-T2-XI8"/>
                         <viewControllerLayoutGuide type="bottom" id="nZm-bN-a99"/>
