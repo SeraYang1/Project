@@ -32,7 +32,12 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>Take a picture to edit</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Upload an image to edit</string>
 </dict>
 </plist>
