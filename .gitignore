@@ -1,0 +1,4 @@
+#Ignore user specific XCode settings
+*.xcuserdatad/
+*.xcuserdata/
+

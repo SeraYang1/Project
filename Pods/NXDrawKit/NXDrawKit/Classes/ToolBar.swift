@@ -55,9 +55,9 @@ open class ToolBar: UIView
         self.addSubview(button)
         self.redoButton = button
         
-        button = self.button("Save")
-        self.addSubview(button)
-        self.saveButton = button
+//        button = self.button("Save")
+//        self.addSubview(button)
+//        self.saveButton = button
         
         button = self.button(iconName: "icon_camera")
         self.addSubview(button)
@@ -73,10 +73,10 @@ open class ToolBar: UIView
         self.redoButton?.frame = CGRect(x: (self.undoButton?.frame)!.maxX + 20, y: 0, width: self.height * 0.5, height: self.height * 0.5)
         self.redoButton?.center = CGPoint(x: (self.redoButton?.center.x)!, y: self.height / 2.0)
 
-        self.saveButton?.frame = CGRect(x: self.width - (self.width * 0.1) - 15, y: 0, width: self.width * 0.1, height: self.width * 0.1)
-        self.saveButton?.center = CGPoint(x: (self.saveButton?.center.x)!, y: self.height / 2.0)
+//        self.saveButton?.frame = CGRect(x: self.width - (self.width * 0.1) - 15, y: 0, width: self.width * 0.1, height: self.width * 0.1)
+//        self.saveButton?.center = CGPoint(x: (self.saveButton?.center.x)!, y: self.height / 2.0)
 
-        self.clearButton?.frame = CGRect(x: (self.saveButton?.frame)!.minX - (self.width * 0.1) - 15, y: 0, width: self.width * 0.1, height: self.width * 0.1)
+        self.clearButton?.frame = CGRect(x: self.width - (self.width * 0.1) - 15, y: 0, width: self.width * 0.1, height: self.width * 0.1)
         self.clearButton?.center = CGPoint(x: (self.clearButton?.center.x)!, y: self.height / 2.0)
 
         self.loadButton?.frame = CGRect(x: 0, y: 0, width: self.width * 0.1, height: self.width * 0.1)

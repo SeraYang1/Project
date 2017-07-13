@@ -7,9 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0811C2F61F12040300EB9D65 /* SketchpadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0811C2F51F12040300EB9D65 /* SketchpadViewController.swift */; };
 		D6857E981F0E9EF400452804 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6857E971F0E9EF400452804 /* AppDelegate.swift */; };
-		D6857E9A1F0E9EF400452804 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6857E991F0E9EF400452804 /* ViewController.swift */; };
 		D6857E9D1F0E9EF400452804 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6857E9B1F0E9EF400452804 /* Main.storyboard */; };
 		D6857E9F1F0E9EF400452804 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6857E9E1F0E9EF400452804 /* Assets.xcassets */; };
 		D6857EA21F0E9EF400452804 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6857EA01F0E9EF400452804 /* LaunchScreen.storyboard */; };
@@ -18,13 +16,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0811C2F51F12040300EB9D65 /* SketchpadViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SketchpadViewController.swift; sourceTree = "<group>"; };
 		2660140F284522BB1FA97972 /* Pods-Project.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Project.release.xcconfig"; path = "Pods/Target Support Files/Pods-Project/Pods-Project.release.xcconfig"; sourceTree = "<group>"; };
 		2FDC9F865B4C9FC3B362E55A /* Pods_Project.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Project.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6512B31975AF239DB323868 /* Pods-Project.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Project.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Project/Pods-Project.debug.xcconfig"; sourceTree = "<group>"; };
 		D6857E941F0E9EF400452804 /* Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Project.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6857E971F0E9EF400452804 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		D6857E991F0E9EF400452804 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		D6857E9C1F0E9EF400452804 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D6857E9E1F0E9EF400452804 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D6857EA11F0E9EF400452804 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -83,8 +79,6 @@
 			isa = PBXGroup;
 			children = (
 				D6857E971F0E9EF400452804 /* AppDelegate.swift */,
-				D6857E991F0E9EF400452804 /* ViewController.swift */,
-				0811C2F51F12040300EB9D65 /* SketchpadViewController.swift */,
 				D6FAD1251F15C89700506BC3 /* DownloadedSketchpad.swift */,
 				D6857E9B1F0E9EF400452804 /* Main.storyboard */,
 				D6857E9E1F0E9EF400452804 /* Assets.xcassets */,
@@ -219,8 +213,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D6FAD1261F15C89700506BC3 /* DownloadedSketchpad.swift in Sources */,
-				D6857E9A1F0E9EF400452804 /* ViewController.swift in Sources */,
-				0811C2F61F12040300EB9D65 /* SketchpadViewController.swift in Sources */,
 				D6857E981F0E9EF400452804 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
