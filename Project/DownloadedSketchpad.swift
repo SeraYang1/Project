@@ -22,6 +22,19 @@ class DownloadedSketchpad: UIViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         self.initialize()
+        
+        let button = UIButton(frame: CGRect(x: 8, y: 20, width: 70, height: 28))
+        button.backgroundColor = UIColor(displayP3Red: 188.0/255.0, green: 232.0/255.0, blue: 1.0, alpha: 1)
+        button.setTitle("Back", for: .normal)
+        button.addTarget(self, action: #selector(goBack), for: .touchUpInside)
+        
+        self.view.addSubview(button)
+    }
+    
+    func goBack(sender: UIButton!) {
+        //TODO - save the picture?? 
+        let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AccessCodePage") as! AccessCodePage
+        self.present(viewController, animated: false, completion: nil)
     }
     
     override func didReceiveMemoryWarning() {

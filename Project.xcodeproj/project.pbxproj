@@ -11,6 +11,7 @@
 		D6857E9D1F0E9EF400452804 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6857E9B1F0E9EF400452804 /* Main.storyboard */; };
 		D6857E9F1F0E9EF400452804 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6857E9E1F0E9EF400452804 /* Assets.xcassets */; };
 		D6857EA21F0E9EF400452804 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6857EA01F0E9EF400452804 /* LaunchScreen.storyboard */; };
+		D699F98A1F17DB22007E7BA4 /* AccessCodePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D699F9891F17DB22007E7BA4 /* AccessCodePage.swift */; };
 		D6FAD1261F15C89700506BC3 /* DownloadedSketchpad.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6FAD1251F15C89700506BC3 /* DownloadedSketchpad.swift */; };
 		E9CDB8F920880EE64A0BCC52 /* Pods_Project.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FDC9F865B4C9FC3B362E55A /* Pods_Project.framework */; };
 /* End PBXBuildFile section */
@@ -25,6 +26,7 @@
 		D6857E9E1F0E9EF400452804 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D6857EA11F0E9EF400452804 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D6857EA31F0E9EF400452804 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D699F9891F17DB22007E7BA4 /* AccessCodePage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessCodePage.swift; sourceTree = "<group>"; };
 		D6FAD1251F15C89700506BC3 /* DownloadedSketchpad.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadedSketchpad.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -84,6 +86,7 @@
 				D6857E9E1F0E9EF400452804 /* Assets.xcassets */,
 				D6857EA01F0E9EF400452804 /* LaunchScreen.storyboard */,
 				D6857EA31F0E9EF400452804 /* Info.plist */,
+				D699F9891F17DB22007E7BA4 /* AccessCodePage.swift */,
 			);
 			path = Project;
 			sourceTree = "<group>";
@@ -212,6 +215,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D699F98A1F17DB22007E7BA4 /* AccessCodePage.swift in Sources */,
 				D6FAD1261F15C89700506BC3 /* DownloadedSketchpad.swift in Sources */,
 				D6857E981F0E9EF400452804 /* AppDelegate.swift in Sources */,
 			);
