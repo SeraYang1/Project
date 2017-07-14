@@ -42,9 +42,10 @@ class DownloadedSketchpad: UIViewController
     }
     
     func initialize() {
-        self.setupCanvas()
         self.setupPalette()
         self.setupToolBar()
+        self.setupCanvas()
+
     }
     
     func setupPalette() {
@@ -59,24 +60,40 @@ class DownloadedSketchpad: UIViewController
         paletteView.frame = CGRect(x: 0, y: self.view.frame.height - paletteHeight, width: self.view.frame.width, height: paletteHeight)
     }
     
+    //Double tap the tool bar to hide the palette
     func hidePalette() {
         let height = (self.paletteView?.frame)!.height * 0.25
         let startY = self.view.frame.height - height
-        toolBar?.frame = CGRect(x: 0, y: startY, width: self.view.frame.width, height: height)
+        self.toolBar?.frame = CGRect(x: 0, y: startY, width: self.view.frame.width, height: height)
+        self.toolBar?.frame = CGRect(x: CGFloat(0), y: self.view.frame.height - 60, width: self.view.frame.width, height: CGFloat(60))
+        self.paletteView?.frame = CGRect(x: 0, y: self.view.frame.height, width: 0, height: 0) //move it out of the screen
+        self.toolBar?.addGestureRecognizer(doubleTap(toShowPalette: true))
 
-        toolBar?.frame = CGRect(x: CGFloat(0), y: self.view.frame.height - 60, width: self.view.frame.width, height: CGFloat(60))
-        paletteView?.frame = CGRect(x: 0, y: self.view.frame.height, width: 0, height: 0) //move it out of the screen
-        let doubleTap = UITapGestureRecognizer(target: self, action: #selector(DownloadedSketchpad.showPalette))
-        doubleTap.numberOfTapsRequired = 2
-        self.toolBar?.addGestureRecognizer(doubleTap)
     }
     
+    //Double tap the tool bar to show the palette
     func showPalette() {
         let paletteHeight = paletteView?.paletteHeight()
-        paletteView?.frame = CGRect(x: 0, y: self.view.frame.height - paletteHeight!, width: self.view.frame.width, height: paletteHeight!)
+        self.paletteView?.frame = CGRect(x: 0, y: self.view.frame.height - paletteHeight!, width: self.view.frame.width, height: paletteHeight!)
         let height = (self.paletteView?.frame)!.height * 0.25
         let startY = self.view.frame.height - (paletteView?.frame)!.height - height
         self.toolBar?.frame = CGRect(x: 0, y: startY, width: self.view.frame.width, height: height)
+        self.toolBar?.addGestureRecognizer(doubleTap(toShowPalette: false))
+    }
+    
+    //Return a GestureRecognizer for when user double taps the toolbar to either show or hide the palette
+    func doubleTap(toShowPalette: Bool) -> UITapGestureRecognizer {
+        var doubleTap: UITapGestureRecognizer!
+        if toShowPalette {
+            doubleTap = UITapGestureRecognizer(target: self, action: #selector(DownloadedSketchpad.showPalette))
+        }
+        
+        else {
+             doubleTap = UITapGestureRecognizer(target: self, action: #selector(DownloadedSketchpad.hidePalette))
+        }
+        
+        doubleTap.numberOfTapsRequired = 2
+        return doubleTap
     }
     
     func setupToolBar() {
@@ -87,35 +104,29 @@ class DownloadedSketchpad: UIViewController
         toolBar.undoButton?.addTarget(self, action: #selector(DownloadedSketchpad.onClickUndoButton), for: .touchUpInside)
         toolBar.redoButton?.addTarget(self, action: #selector(DownloadedSketchpad.onClickRedoButton), for: .touchUpInside)
         toolBar.loadButton?.addTarget(self, action: #selector(DownloadedSketchpad.onClickLoadButton), for: .touchUpInside)
-        toolBar.saveButton?.addTarget(self, action: #selector(DownloadedSketchpad.onClickSaveButton), for: .touchUpInside)
-        // default title is "Save"
-        toolBar.saveButton?.setTitle("share", for: UIControlState())
         toolBar.clearButton?.addTarget(self, action: #selector(DownloadedSketchpad.onClickClearButton), for: .touchUpInside)
         toolBar.loadButton?.isEnabled = true
         self.view.addSubview(toolBar)
         self.toolBar = toolBar
-        let doubleTap = UITapGestureRecognizer(target: self, action: #selector(DownloadedSketchpad.hidePalette))
-        doubleTap.numberOfTapsRequired = 2
-        self.toolBar?.addGestureRecognizer(doubleTap)
+        self.toolBar?.addGestureRecognizer(doubleTap(toShowPalette: false))
     }
     
     func setupCanvas() {
-        //        let canvasView = Canvas(backgroundImage: UIImage.init(named: "frame")!) // You can init with custom background image
+      
         let canvasView = Canvas()
-        canvasView.frame = CGRect(x: 20, y: 50, width: self.view.frame.size.width - 40, height: self.view.frame.size.width - 40)
+
+        canvasView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height - (self.toolBar?.frame.height)!)
         canvasView.delegate = self
-        canvasView.layer.borderColor = UIColor(red: 0.22, green: 0.22, blue: 0.22, alpha: 0.8).cgColor
-        canvasView.layer.borderWidth = 2.0
-        canvasView.layer.cornerRadius = 5.0
-        canvasView.clipsToBounds = true
+
         self.view.addSubview(canvasView)
         self.canvasView = canvasView
+        self.view.bringSubview(toFront: self.paletteView!)
+        self.view.bringSubview(toFront: self.toolBar!)
     }
     
     func updateToolBarButtonStatus(_ canvas: Canvas) {
         self.toolBar?.undoButton?.isEnabled = canvas.canUndo()
         self.toolBar?.redoButton?.isEnabled = canvas.canRedo()
-        self.toolBar?.saveButton?.isEnabled = canvas.canSave()
         self.toolBar?.clearButton?.isEnabled = canvas.canClear()
     }
     

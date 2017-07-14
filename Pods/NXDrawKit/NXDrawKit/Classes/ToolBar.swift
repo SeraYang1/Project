@@ -3,6 +3,7 @@
 //  NXDrawKit
 //
 //  Created by Nicejinux on 7/13/16.
+//  Modified by Janice Chan
 //  Copyright © 2016 Nicejinux. All rights reserved.
 //
 
@@ -12,7 +13,6 @@ open class ToolBar: UIView
 {
     open weak var undoButton: UIButton?
     open weak var redoButton: UIButton?
-    open weak var saveButton: UIButton?
     open weak var loadButton: UIButton?
     open weak var clearButton: UIButton?
     
@@ -35,13 +35,14 @@ open class ToolBar: UIView
     
     // MARK: - Private Methods
     fileprivate func setupViews() {
-        self.backgroundColor = UIColor(red: 0.2, green: 0.2, blue: 0.2, alpha: 1.0)
+        self.backgroundColor = UIColor(red: 0.7, green: 0.9, blue: 1.0, alpha: 1.0)
         
         let lineView = UIView()
-        lineView.backgroundColor = UIColor(red: 0.18, green: 0.18, blue: 0.18, alpha: 1.0)
+        lineView.backgroundColor = UIColor(red: 0.7, green: 0.9, blue: 1.0, alpha: 1.0)
         self.addSubview(lineView)
         self.lineView = lineView
         self.lineView?.autoresizingMask = [.flexibleWidth, .flexibleTopMargin]
+        
         
         var button: UIButton = self.button("Clear")
         self.addSubview(button)

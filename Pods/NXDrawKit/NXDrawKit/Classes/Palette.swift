@@ -3,6 +3,7 @@
 //  NXDrawKit
 //
 //  Created by Nicejinux on 2016. 7. 12..
+//  Modified by Janice Chan
 //  Copyright © 2016년 Nicejinux. All rights reserved.
 //
 
@@ -60,7 +61,7 @@ open class Palette: UIView
     }
     
     open func setup() {
-        self.backgroundColor = UIColor(colorLiteralRed: 0.22, green: 0.22, blue: 0.21, alpha: 1.0)
+        self.backgroundColor = UIColor(red: 0.7, green: 0.9, blue: 1.0, alpha: 1.0)
         self.setupColorView()
         self.setupAlphaView()
         self.setupWidthView()
@@ -88,6 +89,7 @@ open class Palette: UIView
         
         self.totalHeight = button!.frame.maxY + self.buttonPadding;
         self.colorPaletteView?.frame = CGRect(x: 0, y: 0, width: button!.frame.maxX + self.buttonPadding, height: self.totalHeight)
+        self.colorPaletteView?.backgroundColor = UIColor(red: 0.7, green: 0.9, blue: 1.0, alpha: 1.0)
     }
     
     fileprivate func colorButtonRect(index: NSInteger, diameter: CGFloat, padding: CGFloat) -> CGRect {
@@ -118,6 +120,7 @@ open class Palette: UIView
         
         let startX = (self.colorPaletteView?.frame)!.maxX
         self.alphaPaletteView?.frame = CGRect(x: startX, y: 0, width: button!.frame.maxX + self.buttonPadding, height: self.totalHeight)
+        self.alphaPaletteView?.backgroundColor = UIColor(red: 0.7, green: 0.9, blue: 1.0, alpha: 1.0)
     }
     
     fileprivate func alphaButtonRect(index: NSInteger, diameter: CGFloat, padding: CGFloat) -> CGRect {
@@ -150,6 +153,7 @@ open class Palette: UIView
         
         let startX = (self.alphaPaletteView?.frame)!.maxX
         self.widthPaletteView?.frame = CGRect(x: startX, y: 0, width: button!.frame.maxX + self.buttonPadding, height: self.totalHeight)
+        self.widthPaletteView?.backgroundColor = UIColor(red: 0.7, green: 0.9, blue: 1.0, alpha: 1.0)
     }
     
     fileprivate func widthButtonRect(_ diameter: CGFloat, padding: CGFloat, lastY: CGFloat) -> CGRect {
