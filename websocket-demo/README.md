@@ -35,6 +35,7 @@ Here's what's happening:
 - [Writing WebSocket client applications](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API/Writing_WebSocket_client_applications)
 - [Writing WebSocket servers](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API/Writing_WebSocket_servers)
 - [WebSocket](https://developer.mozilla.org/en-US/docs/Web/API/WebSocket)
+- [Differentiating WebSocket clients](https://stackoverflow.com/questions/13364243/websocketserver-node-js-how-to-differentiate-clients)
 
 ## License
 
