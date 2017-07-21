@@ -23,8 +23,12 @@ class DownloadedSketchpad: UIViewController
         super.viewDidLoad()
         self.initialize()
         
-        let button = UIButton(frame: CGRect(x: 8, y: 20, width: 70, height: 28))
-        button.backgroundColor = UIColor(displayP3Red: 188.0/255.0, green: 232.0/255.0, blue: 1.0, alpha: 1)
+        let button = UIButton(frame: CGRect(x: self.view.frame.height/30, y: self.view.frame.height/20, width: 70, height: 28))
+        if #available(iOS 10.0, *) {
+            button.backgroundColor = UIColor(displayP3Red: 188.0/255.0, green: 232.0/255.0, blue: 1.0, alpha: 1)
+        } else {
+            button.backgroundColor = UIColor.red
+        }
         button.setTitle("Back", for: .normal)
         button.addTarget(self, action: #selector(goBack), for: .touchUpInside)
         
