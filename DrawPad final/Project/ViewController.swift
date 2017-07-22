@@ -20,7 +20,8 @@ class ViewController: UIViewController {
   var brushWidth: CGFloat = 10.0
   var opacity: CGFloat = 1.0
   var swiped = false
-  
+  var jsonData: [String: Any] = [:]
+  var coordinates: [Float] = [] //format: [x1, y1, x2, y2...]
   let colors: [(CGFloat, CGFloat, CGFloat)] = [
     (0, 0, 0),
     (105.0 / 255.0, 105.0 / 255.0, 105.0 / 255.0),
@@ -38,6 +39,8 @@ class ViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     // Do any additional setup after loading the view, typically from a nib.
+    jsonData.updateValue(view.frame.width, forKey: "screen_width")
+    jsonData.updateValue(view.frame.height, forKey: "screen_height")
   }
 
   override func didReceiveMemoryWarning() {
@@ -49,19 +52,11 @@ class ViewController: UIViewController {
 
   @IBAction func reset(_ sender: AnyObject) {
     mainImageView.image = nil
+    jsonData.removeAll()
+    jsonData.updateValue("true", forKey: "reset")
+    sendJSONToServer(jsonObject: jsonData)
   }
 
-  @IBAction func share(_ sender: AnyObject) {
-    UIGraphicsBeginImageContext(mainImageView.bounds.size)
-    mainImageView.image?.draw(in: CGRect(x: 0, y: 0, 
-      width: mainImageView.frame.size.width, height: mainImageView.frame.size.height))
-    let image = UIGraphicsGetImageFromCurrentImageContext()
-    UIGraphicsEndImageContext()
-     
-    let activity = UIActivityViewController(activityItems: [image], applicationActivities: nil)
-    present(activity, animated: true, completion: nil)
-  }
-  
   @IBAction func pencilPressed(_ sender: AnyObject) {
     
     var index = sender.tag ?? 0
@@ -78,9 +73,18 @@ class ViewController: UIViewController {
   
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
     swiped = false
-    if let touch = touches.first as? UITouch {
+    if let touch = touches.first {
       lastPoint = touch.location(in: self.view)
     }
+    coordinates = []
+    jsonData.updateValue(brushWidth, forKey: "opacity")
+    jsonData.updateValue(opacity, forKey: "brush_size")
+    jsonData.updateValue(red, forKey: "red")
+    jsonData.updateValue(green, forKey: "green")
+    jsonData.updateValue(blue, forKey: "blue")
+    coordinates.append(Float(lastPoint.x))
+    coordinates.append(Float(lastPoint.y))
+
   }
   
   func drawLineFrom(_ fromPoint: CGPoint, toPoint: CGPoint) {
@@ -113,17 +117,20 @@ class ViewController: UIViewController {
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
     // 6
     swiped = true
-    if let touch = touches.first as? UITouch {
+    if let touch = touches.first {
       let currentPoint = touch.location(in: view)
       drawLineFrom(lastPoint, toPoint: currentPoint)
       
       // 7
       lastPoint = currentPoint
     }
+    coordinates.append(Float(lastPoint.x))
+    coordinates.append(Float(lastPoint.y))
+
   }
   
   override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-
+    print("ended")
     if !swiped {
       // draw a single point
       drawLineFrom(lastPoint, toPoint: lastPoint)
@@ -137,7 +144,21 @@ class ViewController: UIViewController {
     UIGraphicsEndImageContext()
     
     tempImageView.image = nil
+    jsonData.updateValue(coordinates, forKey: "coordinates")
+    sendJSONToServer(jsonObject: jsonData)
   }
+    
+    func sendJSONToServer(jsonObject: [String:Any]) {
+        if JSONSerialization.isValidJSONObject(jsonObject) { // True
+            do {
+                let rawData = try JSONSerialization.data(withJSONObject: jsonData, options: .prettyPrinted)
+                print(jsonData)
+                //TODO send to server
+            } catch {
+                print("error")
+            }
+        }
+    }
   
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     let settingsViewController = segue.destination as! SettingsViewController
