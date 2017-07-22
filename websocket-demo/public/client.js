@@ -1,41 +1,48 @@
+document.getElementById('connect').addEventListener('click', function(event) {
+  
+  var socket = new WebSocket('ws://localhost:8081/');
 
-var socket = new WebSocket('ws://localhost:8081/');
-socket.onopen = function(event) {
-  log('Opened connection 🎉');
-  var json = JSON.stringify({ message: 'Hello' });
-  socket.send(json); //websocket has a send method for pushing data to the server and you can provide an onmessage handler for receiving data from the serve
-  log('Sent: ' + json);
-}
+  socket.onopen = function(event) {
+    log('Opened connection 🎉');
 
-socket.onerror = function(event) { //connects to the  socket.on('message', function(message) {}); 
-  log('Error: ' + JSON.stringify(event));
-}
+    var accessCode = document.getElementById('access').value;
 
-socket.onmessage = function (event) {
-  log('Received: ' + event.data);
-}
+    var json = JSON.stringify({ message: accessCode });
+    socket.send(json); //websocket has a send method for pushing data to the server and you can provide an onmessage handler for receiving data from the serve
+    log('Sent: ' + json);
+  }
 
-socket.onclose = function(event) {
-  log('Closed connection 😱');
-}
+  socket.onerror = function(event) { //connects to the  socket.on('message', function(message) {}); 
+    log('Error: ' + JSON.stringify(event));
+  }
 
-document.querySelector('#close').addEventListener('click', function(event) {
-  socket.close();
-  log('Closed connection 😱');
-});
+  socket.onmessage = function (event) {
+    log('Received: ' + event.data);
+  }
 
-document.querySelector('#send').addEventListener('click', function(event) {
-  var json = JSON.stringify({ message: 'Hey there' });
-  socket.send(json);
-  log('Sent: ' + json);
-});
+  socket.onclose = function(event) {
+    log('Closed connection 😱');
+  }
 
-var log = function(text) {
-  var li = document.createElement('li');
-  li.innerHTML = text;
-  document.getElementById('log').appendChild(li);
-}
+  document.querySelector('#close').addEventListener('click', function(event) {
+    socket.close();
+    log('Closed connection 😱');
+  });
 
-window.addEventListener('beforeunload', function() {
-  socket.close();
+  document.querySelector('#send').addEventListener('click', function(event) {
+    var json = JSON.stringify({ message: 'Hey there' });
+    socket.send(json);
+    log('Sent: ' + json);
+  });
+
+  var log = function(text) {
+    var li = document.createElement('li');
+    li.innerHTML = text;
+    document.getElementById('log').appendChild(li);
+  }
+
+  window.addEventListener('beforeunload', function() {
+    socket.close();
+  });
+
 });
