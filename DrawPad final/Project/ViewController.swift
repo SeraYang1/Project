@@ -53,10 +53,19 @@ class ViewController: UIViewController {
         strokeCount = 1
         coordinateCount = 1
         
+        
+        //add observer for when app is exited
+
+        NotificationCenter.default.addObserver(self, selector: #selector(exit), name: NSNotification.Name.UIApplicationWillTerminate, object: nil)
 
     }
     
-
+    //remove data from database at end of session
+    func exit() {
+        print("exiting")
+        self.ref.child("users").child(userId).removeValue()
+        self.ref.child(userId).removeValue()
+    }
     
     @IBAction func reset(_ sender: AnyObject) {
         mainImageView.image = nil
@@ -171,6 +180,8 @@ class ViewController: UIViewController {
         settingsViewController.green = green
         settingsViewController.blue = blue
     }
+    
+ 
     
 }
 
