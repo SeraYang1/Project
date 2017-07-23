@@ -85,11 +85,11 @@ class ViewController: UIViewController {
         if let touch = touches.first {
             lastPoint = touch.location(in: self.view)
         }
-        self.ref.child(userId).child("strokes").child("brush_width").setValue(brushWidth)
-        self.ref.child(userId).child("strokes").child("opacity").setValue(opacity)
-        self.ref.child(userId).child("strokes").child("red").setValue(red)
-        self.ref.child(userId).child("strokes").child("green").setValue(green)
-        self.ref.child(userId).child("strokes").child("blue").setValue(blue)
+        self.ref.child(userId).child("strokes").child(String(strokeCount)).child("brush_width").setValue(brushWidth)
+        self.ref.child(userId).child("strokes").child(String(strokeCount)).child("opacity").setValue(opacity)
+        self.ref.child(userId).child("strokes").child(String(strokeCount)).child("red").setValue(red)
+        self.ref.child(userId).child("strokes").child(String(strokeCount)).child("green").setValue(green)
+        self.ref.child(userId).child("strokes").child(String(strokeCount)).child("blue").setValue(blue)
 
 
         self.ref.child(userId).child("strokes").child(String(strokeCount)).child("x".appending(String(coordinateCount))).setValue(Float(lastPoint.x))
