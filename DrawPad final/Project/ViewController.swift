@@ -50,27 +50,17 @@ class ViewController: UIViewController {
             self.ref.child(userId).child("screen_height").setValue(view.frame.height)
             self.ref.child(userId).child("screen_width").setValue(view.frame.width)
         }
-        strokeCount = 1
+        self.ref.child("users").child(userId).onDisconnectRemoveValue()
+        self.ref.child(userId).onDisconnectRemoveValue()
+        strokeCount = 0
         coordinateCount = 1
-        
-        
-        //add observer for when app is exited
 
-        NotificationCenter.default.addObserver(self, selector: #selector(exit), name: NSNotification.Name.UIApplicationWillTerminate, object: nil)
-
-    }
-    
-    //remove data from database at end of session
-    func exit() {
-        print("exiting")
-        self.ref.child("users").child(userId).removeValue()
-        self.ref.child(userId).removeValue()
     }
     
     @IBAction func reset(_ sender: AnyObject) {
         mainImageView.image = nil
         self.ref.child(userId).child("strokes").setValue(nil)
-        strokeCount = 1
+        strokeCount = 0
         
         self.ref.child(userId).child("current_stroke").setValue(strokeCount)
     }
@@ -90,6 +80,7 @@ class ViewController: UIViewController {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        strokeCount = strokeCount + 1
         swiped = false
         if let touch = touches.first {
             lastPoint = touch.location(in: self.view)
@@ -166,8 +157,8 @@ class ViewController: UIViewController {
         
         tempImageView.image = nil
         self.ref.child(userId).child("current_stroke").setValue(strokeCount) //last one saved in db
-        strokeCount = strokeCount + 1 //resets in preparation for next batch of coord data
-        coordinateCount = 1
+        coordinateCount = 1         //resets in preparation for next batch of coord data
+
     }
 
     
