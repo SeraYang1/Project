@@ -10,6 +10,7 @@
 		08D847711F23ACCE00E0EE91 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 08D847701F23ACCE00E0EE91 /* GoogleService-Info.plist */; };
 		53975323014637AA15B431D8 /* Pods_Project.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6014B996EB308D350AC9B8E8 /* Pods_Project.framework */; };
 		78B4B8751A49DDAF002B004D /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78B4B8741A49DDAF002B004D /* SettingsViewController.swift */; };
+		D6C02AF81F256C530021BAAB /* AccessCodePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C02AF71F256C530021BAAB /* AccessCodePage.swift */; };
 		EE43D4731A14A6F200311C06 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE43D4721A14A6F200311C06 /* AppDelegate.swift */; };
 		EE43D4751A14A6F200311C06 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE43D4741A14A6F200311C06 /* ViewController.swift */; };
 		EE43D4781A14A6F200311C06 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE43D4761A14A6F200311C06 /* Main.storyboard */; };
@@ -33,6 +34,7 @@
 		5E94346A3C19422461C475A5 /* Pods-Project.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Project.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Project/Pods-Project.debug.xcconfig"; sourceTree = "<group>"; };
 		6014B996EB308D350AC9B8E8 /* Pods_Project.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Project.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		78B4B8741A49DDAF002B004D /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		D6C02AF71F256C530021BAAB /* AccessCodePage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessCodePage.swift; sourceTree = "<group>"; };
 		EE43D46D1A14A6F200311C06 /* Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Project.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE43D4711A14A6F200311C06 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EE43D4721A14A6F200311C06 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 				EE43D4741A14A6F200311C06 /* ViewController.swift */,
 				78B4B8741A49DDAF002B004D /* SettingsViewController.swift */,
 				EE43D4761A14A6F200311C06 /* Main.storyboard */,
+				D6C02AF71F256C530021BAAB /* AccessCodePage.swift */,
 				EE43D4791A14A6F200311C06 /* Images.xcassets */,
 				EE43D47B1A14A6F200311C06 /* LaunchScreen.xib */,
 				EE43D4701A14A6F200311C06 /* Supporting Files */,
@@ -173,7 +176,6 @@
 				TargetAttributes = {
 					EE43D46C1A14A6F200311C06 = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = 7SA4C3FZ9G;
 						LastSwiftMigration = 0830;
 					};
 					EE43D4811A14A6F200311C06 = {
@@ -277,6 +279,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EE43D4751A14A6F200311C06 /* ViewController.swift in Sources */,
+				D6C02AF81F256C530021BAAB /* AccessCodePage.swift in Sources */,
 				EE43D4731A14A6F200311C06 /* AppDelegate.swift in Sources */,
 				78B4B8751A49DDAF002B004D /* SettingsViewController.swift in Sources */,
 			);
@@ -401,12 +404,13 @@
 			baseConfigurationReference = 5E94346A3C19422461C475A5 /* Pods-Project.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 7SA4C3FZ9G;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Project/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.SeraYang;
+				PRODUCT_BUNDLE_IDENTIFIER = com.project.Project;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -415,12 +419,13 @@
 			baseConfigurationReference = 584F2CDE4A27A1FFBF8595AB /* Pods-Project.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 7SA4C3FZ9G;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Project/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.SeraYang;
+				PRODUCT_BUNDLE_IDENTIFIER = com.project.Project;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
