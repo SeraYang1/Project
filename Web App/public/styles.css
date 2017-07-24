@@ -86,9 +86,9 @@ td {
       }
 
 #app {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
+  min-width: 100%;
+  min-height: 100%;
+  background: #e2e2e2;
 }
   #download, #close {
     padding: 15px;
@@ -101,3 +101,6 @@ td {
     #download:hover, #close:hover {
       color: #346992;
     }
+  canvas {
+    
+  }

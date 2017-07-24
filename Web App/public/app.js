@@ -100,5 +100,22 @@ function downloadCanvas(link, canvasId, filename) {
   link.download = filename;
 }
 document.getElementById('download').addEventListener('click', function() {
-  downloadCanvas(this, 'canvas', 'test.png');
+  downloadCanvas(this, 'canvas', 'project_'+date()+'.png');
 }, false);
+function date() {
+  var today = new Date();
+  var dd = today.getDate();
+  var mm = today.getMonth()+1; //January is 0!
+  var yyyy = today.getFullYear();
+
+  if(dd<10) {
+      dd = '0'+dd
+  } 
+
+  if(mm<10) {
+      mm = '0'+mm
+  } 
+
+  today = mm + '-' + dd + '-' + yyyy;
+  return today;
+}
