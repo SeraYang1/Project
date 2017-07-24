@@ -2,6 +2,7 @@ import UIKit
 
 protocol SettingsViewControllerDelegate: class {
   func settingsViewControllerFinished(_ settingsViewController: SettingsViewController)
+    func reset()
 }
 
 class SettingsViewController: UIViewController {
@@ -46,6 +47,13 @@ class SettingsViewController: UIViewController {
     dismiss(animated: true, completion: nil)
     self.delegate?.settingsViewControllerFinished(self)
   }
+    
+    @IBAction func resetButton(_ sender: Any) {
+        self.delegate?.reset()
+        dismiss(animated: true, completion: nil)
+        self.delegate?.settingsViewControllerFinished(self)
+    }
+    
 
   @IBAction func colorChanged(_ sender: UISlider) {
     red = CGFloat(sliderRed.value / 255.0)

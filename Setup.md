@@ -10,3 +10,10 @@
 * Fix DB access rules
 * Remove key when user disconnects
 * Complete other end of data transfer
+
+## Web App
+* To run the web app, go to Web App > public and run 
+~~~
+firebase serve --project test-daef2
+~~~
+* If that fails, go to "Run a Local Web Server" in here: https://firebase.google.com/docs/web/setup

@@ -191,12 +191,12 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jNR-iD-Ndp">
-                                <rect key="frame" x="20" y="28" width="39" height="30"/>
-                                <state key="normal" title="Reset">
+                                <rect key="frame" x="20" y="28" width="34" height="30"/>
+                                <state key="normal" title="Back">
                                     <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="reset:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="a2q-cP-iaj"/>
+                                    <segue destination="Dqn-W1-bTs" kind="show" id="TKz-no-GVw"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p7b-9S-s9X">
@@ -205,7 +205,7 @@
                                     <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="LFy-TC-tvP" kind="presentation" id="dsT-HQ-c5Y"/>
+                                    <segue destination="LFy-TC-tvP" kind="presentation" identifier="settings" id="dsT-HQ-c5Y"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -378,6 +378,16 @@
                                     <action selector="sliderChanged:" destination="LFy-TC-tvP" eventType="valueChanged" id="w27-6J-fCC"/>
                                 </connections>
                             </slider>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SZQ-vz-2vK">
+                                <rect key="frame" x="151.5" y="537" width="71" height="46"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                                <state key="normal" title="Reset">
+                                    <color key="titleColor" red="0.8462682423857868" green="0.18773885942791155" blue="0.11207779912155684" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="resetButton:" destination="LFy-TC-tvP" eventType="touchUpInside" id="x6d-Lz-iQR"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -420,11 +430,13 @@
                             <constraint firstAttribute="trailing" secondItem="Tm1-Gb-GZN" secondAttribute="trailing" constant="20" symbolic="YES" id="nrJ-80-NHl"/>
                             <constraint firstItem="ULG-Fi-1Uz" firstAttribute="leading" secondItem="NJF-BG-ht5" secondAttribute="trailing" constant="8" symbolic="YES" id="o0z-Ud-Qhy"/>
                             <constraint firstItem="3xs-hQ-Gau" firstAttribute="centerY" secondItem="pPl-Z0-VQz" secondAttribute="centerY" constant="0.5" id="pbC-PP-TBO"/>
+                            <constraint firstItem="SZQ-vz-2vK" firstAttribute="centerX" secondItem="3bm-Do-1fP" secondAttribute="centerX" id="rHh-h7-opb"/>
                             <constraint firstItem="sHG-wb-pO4" firstAttribute="leading" secondItem="g9y-RE-r24" secondAttribute="trailing" constant="8" symbolic="YES" id="rfz-R9-H2W"/>
                             <constraint firstItem="g9y-RE-r24" firstAttribute="leading" secondItem="3bm-Do-1fP" secondAttribute="leading" constant="20" symbolic="YES" id="sG4-5L-7Eu"/>
                             <constraint firstItem="2tg-kR-MBX" firstAttribute="top" secondItem="xds-Ud-ruA" secondAttribute="bottom" symbolic="YES" id="uG6-Ai-7Lb"/>
                             <constraint firstItem="g9y-RE-r24" firstAttribute="centerY" secondItem="aA6-s3-Ayn" secondAttribute="centerY" id="v6y-fG-TtG"/>
                             <constraint firstItem="g9y-RE-r24" firstAttribute="centerY" secondItem="sHG-wb-pO4" secondAttribute="centerY" id="wmx-pw-kfk"/>
+                            <constraint firstItem="VLo-8p-h5c" firstAttribute="top" secondItem="SZQ-vz-2vK" secondAttribute="bottom" constant="84" id="xPY-xM-iis"/>
                             <constraint firstItem="2tg-kR-MBX" firstAttribute="leading" secondItem="ULG-Fi-1Uz" secondAttribute="trailing" constant="8" symbolic="YES" id="xQG-7n-Gxy"/>
                             <constraint firstAttribute="trailing" secondItem="xds-Ud-ruA" secondAttribute="trailing" id="xmq-WT-qhs"/>
                             <constraint firstItem="Tm1-Gb-GZN" firstAttribute="centerY" secondItem="BlR-HB-14q" secondAttribute="centerY" constant="-0.5" id="xwj-4a-VRN"/>
@@ -741,6 +753,7 @@
         <image name="Yellow" width="53" height="332"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="TKz-no-GVw"/>
         <segue reference="pKy-Mx-3o2"/>
     </inferredMetricsTieBreakers>
 </document>

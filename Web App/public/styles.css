@@ -1,0 +1,103 @@
+/* boilerplate */
+html, body {
+  margin: 0;
+  height: 100%;
+  width: 100%;
+}
+td { 
+  vertical-align: top;
+}
+:focus {
+  outline: none;
+}
+.row {
+  width: 100%;
+}
+
+#object{
+  margin: 0;
+}
+
+/* splash page */
+#splash {
+  background: url(images/background.png);
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  vertical-align: middle;
+}
+  #splash img {
+    width: 562px;
+    height: 206px;
+    margin: 0 auto;
+    position: absolute;
+    left: 50%;
+    margin-left: -282px;
+    top: 50%;
+    margin-top: -103px;
+  }
+  #splash #icon {
+    cursor: pointer;
+  }
+  #intro {
+    width: 100%;
+    font-family: Arial;
+  } 
+    #intro .row {
+      position: absolute;
+      top: 50%;
+      margin-top: 75px;
+    }
+    #intro input[type=text] {
+      border: 0;
+      margin: 0;
+      padding: 0;
+      background: initial;
+      border-bottom: 3px solid white;
+      width: 200px;
+      margin-right: 30px;
+      font-size: 16px;
+      padding: 5px;
+      color: white;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    #intro ::placeholder {
+      color: white;
+    }
+    #intro button {
+      border: none;
+      background: white;
+      font-size: 16px;
+      text-transform: uppercase;
+      padding: 10px 15px;
+      color: #346992;
+      cursor: pointer;
+      font-weight: bold;
+      letter-spacing: 1px;
+      transition: 0.5s;
+      -webkit-transition: 0.5s;
+    }
+      #intro button:hover {
+        color: #29a529;
+      }
+
+#app {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+  #download, #close {
+    padding: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    transition: 0.5s;
+    -webkit-transition: 0.5s;
+    color: black;
+  }
+    #download:hover, #close:hover {
+      color: #346992;
+    }
