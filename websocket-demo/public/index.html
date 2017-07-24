@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+
+<html>
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>Project</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+
+  </head>
+
+  <body>
+
+    <div id="splash">
+      <img id="icon" src="images/icon.png">
+      <div id="intro" style="display: none;">
+        <img id="title" src="images/title.png">
+        <div class="row">
+          <input type="text" name="access" id="access" placeholder="access code">
+          <button id="connect" onclick="connect()">Connect</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="app" style="display: none;">
+      <canvas id="canvas" width="100%" height="100%"></canvas>
+      <a id="download" style="position: absolute; bottom: 0; left: 0;"><i class="fa fa-download"></i></a>
+      <i id="close" class="fa fa-close" style="position: absolute; top: 0; right: 0;"></i>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="client.js"></script>
+    <script type="text/javascript">
+
+      $('#icon').click(function() {
+        $('#icon').fadeOut('slow');
+        $('#intro').fadeIn('slow');
+      });
+
+      function connect() {
+        $('#splash').hide();
+        $('#app').show();
+        init();
+      }
+
+      $('#close').click(function() {
+        $('#app').hide();
+        $('#splash').show();
+      });
+
+      function init() {
+        var c = document.getElementById("canvas");
+        c.width = document.body.clientWidth;
+        c.height = document.body.clientHeight;
+
+        var ctx = c.getContext("2d");
+        ctx.fillStyle = "#fff";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+      }
+
+      function draw( x1, y1, x2, y2, r, g, b, a, thickness ) {
+        var c = document.getElementById("canvas");
+        var ctx = c.getContext("2d");
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        ctx.strokeStyle = "rgba("+r+", "+g+", "+b+","+a+")";
+        ctx.lineWidth=thickness;
+        ctx.stroke();
+      }
+
+      function downloadCanvas(link, canvasId, filename) {
+        link.href = document.getElementById(canvasId).toDataURL();
+        link.download = filename;
+      }
+
+      document.getElementById('download').addEventListener('click', function() {
+        downloadCanvas(this, 'canvas', 'test.png');
+      }, false);
+
+    </script>
+
+  </body>
+
+</html>
