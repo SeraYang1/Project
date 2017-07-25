@@ -44,7 +44,6 @@ function connect() {
   const numAttrKeys = 5
 
 //TODO clean up code
-//TODO NOT REGISTERING REGULAR DOTS
 
   strokesList.on("child_changed", function(snapshot) {
     const numCoordParts = (snapshot.numChildren() - 5) 
@@ -91,38 +90,37 @@ $('#close').click(function() {
 
 // Initializing the canvas
 
-//TODO NOT REGISTERING REGULAR DOTS
 function init( data ) {
   var c = document.getElementById("canvas");
   c.height = data.screen_height;
   c.width = data.screen_width;
 
-  var ctx = c.getContext("2d");
-  ctx.fillStyle = "#fff";
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  reset();
 
   var strokes = data.strokes;
   for ( var i = 1; i <= data.current_stroke; i++ ) {
 
-    var numOfCoords = JSON.stringify(strokes[1]).split('x').length;
-    // console.log(numOfCoords)
+    var numOfCoords = JSON.stringify(strokes[i]).split('x').length-1;
     curr = strokes[i];
+
     if (numOfCoords == 1) {
-      console.log("jej"); //currently not happening for points
-      draw( curr['x'+1], curr['y'+1], curr['x'+1], curr['y'+1], curr['red'], curr['green'], curr['blue'], curr['opacity'], curr['brush_width']);
+      draw( curr['x'+1], curr['y'+1], curr['x'+1]+0.4, curr['y'+1]+0.4, curr['red'], curr['green'], curr['blue'], curr['opacity'], curr['brush_width']);
     }
     else {
-      for ( var j = 1; j < numOfCoords - 1; j++ ) {
+      for ( var j = 1; j < numOfCoords; j++ ) {
         draw( curr['x'+j], curr['y'+j], curr['x'+(j+1)], curr['y'+(j+1)], curr['red'], curr['green'], curr['blue'], curr['opacity'], curr['brush_width'] );
       }
     }
+
   }
 }
 
 //Reset canvas
-//TODO write
+
 function reset() {
-  console.log("finish this method");
+  var ctx = document.getElementById('canvas').getContext("2d");
+  ctx.fillStyle = "#fff";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
 // Generic draw function on a canvas
@@ -134,7 +132,7 @@ function draw( x1, y1, x2, y2, r, g, b, a, thickness ) {
   ctx.lineCap = 'round';
   ctx.beginPath();
   ctx.moveTo(x1, y1);
-  ctx.strokeStyle = "rgba("+r+", "+g+", "+b+","+a+")";
+  ctx.strokeStyle = "rgba("+r+", "+g+", "+b+", "+a+")";
   ctx.lineWidth = thickness;
   ctx.lineTo(x2, y2);
   ctx.closePath();
