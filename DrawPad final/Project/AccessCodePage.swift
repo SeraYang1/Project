@@ -17,6 +17,14 @@ class AccessCodePage : UIViewController {
     @IBOutlet weak var accessCode: UITextField!
     @IBOutlet weak var copyButton: UIButton!
     
+    override var shouldAutorotate: Bool {
+        return false
+    }
+    
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .portrait
+    }
+    
     override func viewDidLoad() {
         accessCode.text = generatedCode
         copiedTopBar.isHidden = true

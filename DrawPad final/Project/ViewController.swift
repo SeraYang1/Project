@@ -57,6 +57,10 @@ class ViewController: UIViewController {
 
     }
     
+    override var shouldAutorotate: Bool {
+        return true
+    }
+    
     @IBAction func pencilPressed(_ sender: AnyObject) {
         
         var index = sender.tag ?? 0

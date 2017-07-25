@@ -10,6 +10,7 @@
 		08D847711F23ACCE00E0EE91 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 08D847701F23ACCE00E0EE91 /* GoogleService-Info.plist */; };
 		53975323014637AA15B431D8 /* Pods_Project.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6014B996EB308D350AC9B8E8 /* Pods_Project.framework */; };
 		78B4B8751A49DDAF002B004D /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78B4B8741A49DDAF002B004D /* SettingsViewController.swift */; };
+		D65A38501F26E0D400A0924B /* RotationLock.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65A384F1F26E0D400A0924B /* RotationLock.swift */; };
 		D6C02AF81F256C530021BAAB /* AccessCodePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C02AF71F256C530021BAAB /* AccessCodePage.swift */; };
 		EE43D4731A14A6F200311C06 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE43D4721A14A6F200311C06 /* AppDelegate.swift */; };
 		EE43D4751A14A6F200311C06 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE43D4741A14A6F200311C06 /* ViewController.swift */; };
@@ -34,6 +35,7 @@
 		5E94346A3C19422461C475A5 /* Pods-Project.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Project.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Project/Pods-Project.debug.xcconfig"; sourceTree = "<group>"; };
 		6014B996EB308D350AC9B8E8 /* Pods_Project.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Project.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		78B4B8741A49DDAF002B004D /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		D65A384F1F26E0D400A0924B /* RotationLock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RotationLock.swift; sourceTree = "<group>"; };
 		D6C02AF71F256C530021BAAB /* AccessCodePage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessCodePage.swift; sourceTree = "<group>"; };
 		EE43D46D1A14A6F200311C06 /* Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Project.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE43D4711A14A6F200311C06 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 				EE43D4721A14A6F200311C06 /* AppDelegate.swift */,
 				EE43D4741A14A6F200311C06 /* ViewController.swift */,
 				78B4B8741A49DDAF002B004D /* SettingsViewController.swift */,
+				D65A384F1F26E0D400A0924B /* RotationLock.swift */,
 				EE43D4761A14A6F200311C06 /* Main.storyboard */,
 				D6C02AF71F256C530021BAAB /* AccessCodePage.swift */,
 				EE43D4791A14A6F200311C06 /* Images.xcassets */,
@@ -176,6 +179,7 @@
 				TargetAttributes = {
 					EE43D46C1A14A6F200311C06 = {
 						CreatedOnToolsVersion = 6.1;
+						DevelopmentTeam = 7SA4C3FZ9G;
 						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 					};
@@ -282,6 +286,7 @@
 				EE43D4751A14A6F200311C06 /* ViewController.swift in Sources */,
 				D6C02AF81F256C530021BAAB /* AccessCodePage.swift in Sources */,
 				EE43D4731A14A6F200311C06 /* AppDelegate.swift in Sources */,
+				D65A38501F26E0D400A0924B /* RotationLock.swift in Sources */,
 				78B4B8751A49DDAF002B004D /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -406,7 +411,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 7SA4C3FZ9G;
 				INFOPLIST_FILE = Project/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.SeraYang;
@@ -423,7 +428,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 7SA4C3FZ9G;
 				INFOPLIST_FILE = Project/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.SeraYang;

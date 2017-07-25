@@ -5,7 +5,7 @@ protocol SettingsViewControllerDelegate: class {
     func reset()
 }
 
-class SettingsViewController: UIViewController {
+class SettingsViewController: UIViewController, UINavigationControllerDelegate {
 
   @IBOutlet weak var sliderBrush: UISlider!
   @IBOutlet weak var sliderOpacity: UISlider!
@@ -31,6 +31,14 @@ class SettingsViewController: UIViewController {
   var blue: CGFloat = 0.0
   
   weak var delegate: SettingsViewControllerDelegate?
+    
+    override var shouldAutorotate: Bool {
+        return false
+    }
+    
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .portrait
+    }
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -123,6 +131,10 @@ class SettingsViewController: UIViewController {
    
     drawPreview()
   }
+    
+    func navigationControllerSupportedInterfaceOrientations(navigationController: UINavigationController) -> UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.portrait
+    }
 
   /*
   // MARK: - Navigation
