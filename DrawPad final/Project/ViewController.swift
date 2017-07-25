@@ -90,6 +90,7 @@ class ViewController: UIViewController {
 
         self.ref.child(userId).child("strokes").child(String(strokeCount)).child("x".appending(String(coordinateCount))).setValue(Float(lastPoint.x))
         self.ref.child(userId).child("strokes").child(String(strokeCount)).child("y".appending(String(coordinateCount))).setValue(Float(lastPoint.y))
+        coordinateCount = coordinateCount + 1
         
         
     }

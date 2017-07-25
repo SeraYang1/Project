@@ -39,22 +39,24 @@ function connect() {
   });
 
   //Listens for realtime updates
-  //TODO test drawing code for firebase & iOS
+  //TODO test drawing code for iOS, currently not detecting changes b/c of brush being sent first
   const drawingObject = ref.child(access_code);
   const strokesList = drawingObject.child('strokes');
 
-  strokesList.on("child_added", function(snapshot, prevChildKey) { //snapshot is of the new stroke
-    console.log("something changed");
-    console.log(prevChildKey); //previous stroke count
-    updateCanvas(snapshot.val());
-  
+//TODO NOT REGISTERING REGULAR DOTS
+//TODO update logic for previous point & figure out current point
+  strokesList.on("child_changed", function(snapshot) {
+    console.log(snapshot.val().x1)
+    if (snapshot.child("x1").exists()) { //there is at least one coordinate. ok.
+      console.log("JEJ");
+    // updateCanvas(snapshot);
+    }
   });
 
   // Listens for reset event
   ref.child(access_code).on("child_removed", function(snapshot) {
     console.log(snapshot.key)
     if (snapshot.key == "strokes") {
-      console.log("removed")
       reset();
     }
     
@@ -80,6 +82,7 @@ $('#close').click(function() {
 
 // Initializing the canvas
 
+//TODO NOT REGISTERING REGULAR DOTS
 function init( data ) {
   var c = document.getElementById("canvas");
   c.height = data.screen_height;
@@ -93,22 +96,31 @@ function init( data ) {
   for ( var i = 1; i <= data.current_stroke; i++ ) {
 
     var numOfCoords = JSON.stringify(strokes[1]).split('x').length;
+    // console.log(numOfCoords)
     curr = strokes[i];
-
-    for ( var j = 1; j < numOfCoords - 1; j++ ) {
-      draw( curr['x'+j], curr['y'+j], curr['x'+(j+1)], curr['y'+(j+1)], curr['red'], curr['green'], curr['blue'], curr['opacity'], curr['brush_width'] );
+    if (numOfCoords == 1) {
+      console.log("jej"); //currently not happening for points
+      draw( curr['x'+1], curr['y'+1], curr['x'+1], curr['y'+1], curr['red'], curr['green'], curr['blue'], curr['opacity'], curr['brush_width']);
     }
-
+    else {
+      for ( var j = 1; j < numOfCoords - 1; j++ ) {
+        draw( curr['x'+j], curr['y'+j], curr['x'+(j+1)], curr['y'+(j+1)], curr['red'], curr['green'], curr['blue'], curr['opacity'], curr['brush_width'] );
+      }
+    }
   }
 }
 
 // Update canvas
-//TODO test
+//TODO test: 1. starting from init, 2. starting from middle 
 function updateCanvas(data) {
-    // var numOfCoords = JSON.stringify(data).split('x').length;
-    // for ( var j = 1; j < numOfCoords - 1; j++ ) {
-    //   draw( data['x'+j], data['y'+j], data['x'+(j+1)], data['y'+(j+1)], data['red'], data['green'], data['blue'], data['opacity'], data['brush_width'] );
-    // }
+    console.log("this is the key")
+    console.log(data.key)
+    console.log(JSON.stringify(data.val()))
+    var numOfCoords = JSON.stringify(data.val()).split('x').length;
+    console.log(numOfCoords);
+    for ( var j = 1; j < numOfCoords - 1; j++ ) {
+      draw( data['x'+j], data['y'+j], data['x'+(j+1)], data['y'+(j+1)], data['red'], data['green'], data['blue'], data['opacity'], data['brush_width'] );
+    }
 
 }
 
