@@ -39,18 +39,27 @@ function connect() {
   });
 
   //Listens for realtime updates
-  //TODO test drawing code for iOS, currently not detecting changes b/c of brush being sent first
   const drawingObject = ref.child(access_code);
   const strokesList = drawingObject.child('strokes');
+  const numAttrKeys = 5
 
+//TODO clean up code
 //TODO NOT REGISTERING REGULAR DOTS
-//TODO update logic for previous point & figure out current point
+
   strokesList.on("child_changed", function(snapshot) {
-    console.log(snapshot.val().x1)
-    if (snapshot.child("x1").exists()) { //there is at least one coordinate. ok.
-      console.log("JEJ");
+    const numCoordParts = (snapshot.numChildren() - 5) 
+
+    if (numCoordParts % 2 == 0 && numCoordParts > 2) { //there is more than  one coordinate. ok.
+      const numCoords = numCoordParts / 2;
+      const toX = snapshot.child("x" + (numCoords)).val(); //last coordinate
+      const toY = snapshot.child("y" + (numCoords)).val();
+      const fromX = snapshot.child("x" + (numCoords - 1)).val();
+      const fromY = snapshot.child("y" + (numCoords - 1)).val();
+      draw(fromX, fromY, toX, toY, snapshot.child("red").val(), snapshot.child("green").val(),  snapshot.child("blue").val(), snapshot.child("opacity").val(), snapshot.child("brush_width").val()) 
+
     // updateCanvas(snapshot);
     }
+
   });
 
   // Listens for reset event
@@ -108,20 +117,6 @@ function init( data ) {
       }
     }
   }
-}
-
-// Update canvas
-//TODO test: 1. starting from init, 2. starting from middle 
-function updateCanvas(data) {
-    console.log("this is the key")
-    console.log(data.key)
-    console.log(JSON.stringify(data.val()))
-    var numOfCoords = JSON.stringify(data.val()).split('x').length;
-    console.log(numOfCoords);
-    for ( var j = 1; j < numOfCoords - 1; j++ ) {
-      draw( data['x'+j], data['y'+j], data['x'+(j+1)], data['y'+(j+1)], data['red'], data['green'], data['blue'], data['opacity'], data['brush_width'] );
-    }
-
 }
 
 //Reset canvas
