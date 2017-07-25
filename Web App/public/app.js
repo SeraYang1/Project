@@ -25,7 +25,7 @@ function connect() {
   ref.once("value").then(function(snapshot) {
     if( access_code != "" && snapshot.hasChild( access_code ) ) {
 
-      console.log(snapshot.child(access_code).val());
+      // console.log(snapshot.child(access_code).val());
 
       $('#splash').hide();
       $('#app').show();
@@ -37,7 +37,32 @@ function connect() {
   }, function (error) {
     console.log("Error: " + error.code);
   });
+
+  //Listens for realtime updates
+  //TODO test drawing code for firebase & iOS
+  const drawingObject = ref.child(access_code);
+  const strokesList = drawingObject.child('strokes');
+
+  strokesList.on("child_added", function(snapshot, prevChildKey) { //snapshot is of the new stroke
+    console.log("something changed");
+    console.log(prevChildKey); //previous stroke count
+    updateCanvas(snapshot.val());
+  
+  });
+
+  // Listens for reset event
+  ref.child(access_code).on("child_removed", function(snapshot) {
+    console.log(snapshot.key)
+    if (snapshot.key == "strokes") {
+      console.log("removed")
+      reset();
+    }
+    
+  });
+    
 }
+
+
 
 // Opening animation
 
@@ -75,6 +100,22 @@ function init( data ) {
     }
 
   }
+}
+
+// Update canvas
+//TODO test
+function updateCanvas(data) {
+    // var numOfCoords = JSON.stringify(data).split('x').length;
+    // for ( var j = 1; j < numOfCoords - 1; j++ ) {
+    //   draw( data['x'+j], data['y'+j], data['x'+(j+1)], data['y'+(j+1)], data['red'], data['green'], data['blue'], data['opacity'], data['brush_width'] );
+    // }
+
+}
+
+//Reset canvas
+//TODO write
+function reset() {
+  console.log("finish this method");
 }
 
 // Generic draw function on a canvas
