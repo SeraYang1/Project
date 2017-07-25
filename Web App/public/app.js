@@ -94,24 +94,11 @@ function init( data ) {
   var c = document.getElementById("canvas");
   c.height = data.screen_height;
   c.width = data.screen_width;
-
   reset();
 
   var strokes = data.strokes;
   for ( var i = 1; i <= data.current_stroke; i++ ) {
-
-    var numOfCoords = JSON.stringify(strokes[i]).split('x').length-1;
-    curr = strokes[i];
-
-    if (numOfCoords == 1) {
-      draw( curr['x'+1], curr['y'+1], curr['x'+1]+0.4, curr['y'+1]+0.4, curr['red'], curr['green'], curr['blue'], curr['opacity'], curr['brush_width']);
-    }
-    else {
-      for ( var j = 1; j < numOfCoords; j++ ) {
-        draw( curr['x'+j], curr['y'+j], curr['x'+(j+1)], curr['y'+(j+1)], curr['red'], curr['green'], curr['blue'], curr['opacity'], curr['brush_width'] );
-      }
-    }
-
+    drawStroke( strokes[i] );
   }
 }
 
@@ -121,6 +108,21 @@ function reset() {
   var ctx = document.getElementById('canvas').getContext("2d");
   ctx.fillStyle = "#fff";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
+}
+
+// Drawing a single stroke
+
+function drawStroke( stroke ) {
+  var numOfCoords = JSON.stringify(stroke).split('x').length - 1;
+
+  if (numOfCoords == 1) {
+    drawPoint( stroke['x'+1], stroke['y'+1], stroke['red'], stroke['green'], stroke['blue'], stroke['opacity'], stroke['brush_width']);
+  }
+  else {
+    for ( var j = 1; j < numOfCoords; j++ ) {
+      draw( stroke['x'+j], stroke['y'+j], stroke['x'+(j+1)], stroke['y'+(j+1)], stroke['red'], stroke['green'], stroke['blue'], stroke['opacity'], stroke['brush_width'] );
+    }
+  }
 }
 
 // Generic draw function on a canvas
@@ -137,6 +139,12 @@ function draw( x1, y1, x2, y2, r, g, b, a, thickness ) {
   ctx.lineTo(x2, y2);
   ctx.closePath();
   ctx.stroke();
+}
+
+// Drawing a single point
+
+function drawPoint( x, y, r, g, b, a, thickness ) {
+  draw( x, y, x+0.4, y+0.4, r, g, b, a, thickness);
 }
 
 // Download button on canvas (saves as file)
