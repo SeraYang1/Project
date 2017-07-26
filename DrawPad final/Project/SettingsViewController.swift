@@ -42,6 +42,10 @@ class SettingsViewController: UIViewController, UINavigationControllerDelegate {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    accessCode.text = SettingsViewController.generatedCode
+    copiedTopBar.isHidden = true
+    copyButton.layer.cornerRadius = 5
 
     // Do any additional setup after loading the view.
   }
@@ -145,5 +149,36 @@ class SettingsViewController: UIViewController, UINavigationControllerDelegate {
   // Pass the selected object to the new view controller.
   }
   */
+    
+    static var generatedCode = "CODE"
+    var time = 0
+    var timer : Timer!
+    @IBOutlet weak var copiedTopBar: UILabel!
+    @IBOutlet weak var accessCode: UITextField!
+    @IBOutlet weak var copyButton: UIButton!
+    
+    @IBAction func copyCodeButtonClicked(_ sender: Any) {
+        print(SettingsViewController.generatedCode)
+        UIPasteboard.general.string = accessCode.text
+        copiedTopBar.isHidden = false
+        startTimer()
+    }
+    
+    func startTimer() {
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self,   selector: (#selector(copiedDisappear)), userInfo: nil, repeats: true)
+    }
+    
+    func copiedDisappear(){
+        time = time + 1
+        if(time == 2){
+            copiedTopBar.isHidden = true
+            timer.invalidate()
+        }
+    }
+    
+    static func setCode(s: String){
+        generatedCode = s
+    }
+
 
 }

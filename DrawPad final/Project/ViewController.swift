@@ -41,6 +41,9 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         userId = self.ref.child("users").childByAutoId().key //users list
+        //passes the id to settings so it can be copied as access code
+        SettingsViewController.setCode(s: userId)
+        print(userId)
         self.ref.child("users").child(userId).setValue("ok")
         if UIDevice.current.orientation == UIDeviceOrientation.landscapeLeft || UIDevice.current.orientation == UIDeviceOrientation.landscapeRight {
             self.ref.child(userId).child("screen_width").setValue(view.frame.height)
