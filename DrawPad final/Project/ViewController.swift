@@ -57,7 +57,6 @@ class ViewController: UIViewController {
         self.ref.child(userId).onDisconnectRemoveValue()
         strokeCount = 0
         coordinateCount = 1
-
     }
     
     override var shouldAutorotate: Bool {
@@ -89,8 +88,8 @@ class ViewController: UIViewController {
         self.ref.child(userId).child("strokes").child(String(strokeCount)).child("red").setValue(red)
         self.ref.child(userId).child("strokes").child(String(strokeCount)).child("green").setValue(green)
         self.ref.child(userId).child("strokes").child(String(strokeCount)).child("blue").setValue(blue)
-
-
+        
+        
         self.ref.child(userId).child("strokes").child(String(strokeCount)).child("x".appending(String(coordinateCount))).setValue(Float(lastPoint.x))
         self.ref.child(userId).child("strokes").child(String(strokeCount)).child("y".appending(String(coordinateCount))).setValue(Float(lastPoint.y))
         coordinateCount = coordinateCount + 1
@@ -158,9 +157,9 @@ class ViewController: UIViewController {
         tempImageView.image = nil
         self.ref.child(userId).child("current_stroke").setValue(strokeCount) //last one saved in db
         coordinateCount = 1         //resets in preparation for next batch of coord data
-
+        
     }
-
+    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if(segue.identifier == "settings"){
@@ -172,10 +171,15 @@ class ViewController: UIViewController {
             settingsViewController.green = green
             settingsViewController.blue = blue
         }
+        
+        if(segue.identifier == "Intro"){
+            let introViewController = segue.destination as! IntroScreen
+            introViewController.firstTime = false
+        }
     }
     
     
- 
+    
     
 }
 

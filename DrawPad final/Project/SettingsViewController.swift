@@ -2,7 +2,7 @@ import UIKit
 
 protocol SettingsViewControllerDelegate: class {
   func settingsViewControllerFinished(_ settingsViewController: SettingsViewController)
-    func reset()
+  func reset()
 }
 
 class SettingsViewController: UIViewController, UINavigationControllerDelegate {
@@ -56,7 +56,7 @@ class SettingsViewController: UIViewController, UINavigationControllerDelegate {
   }
 
   @IBAction func close(_ sender: AnyObject) {
-    dismiss(animated: true, completion: nil)
+    dismiss(animated: false, completion: nil)
     self.delegate?.settingsViewControllerFinished(self)
   }
     

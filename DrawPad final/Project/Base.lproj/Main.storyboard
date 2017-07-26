@@ -196,7 +196,7 @@
                                     <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="LIa-HP-rGa" kind="show" id="Qbg-va-3hz"/>
+                                    <segue destination="LIa-HP-rGa" kind="presentation" identifier="Intro" animates="NO" id="Qbg-va-3hz"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p7b-9S-s9X">
@@ -205,7 +205,7 @@
                                     <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="LFy-TC-tvP" kind="presentation" identifier="settings" id="dsT-HQ-c5Y"/>
+                                    <segue destination="LFy-TC-tvP" kind="presentation" identifier="settings" animates="NO" id="dsT-HQ-c5Y"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -502,10 +502,10 @@
             </objects>
             <point key="canvasLocation" x="1012" y="477.21139430284859"/>
         </scene>
-        <!--Rotation Lock-->
+        <!--Intro Screen-->
         <scene sceneID="Ayu-1R-huu">
             <objects>
-                <viewController id="LIa-HP-rGa" customClass="RotationLock" customModule="Project" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Intro" id="LIa-HP-rGa" customClass="IntroScreen" customModule="Project" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="xpj-Fa-sNG"/>
                         <viewControllerLayoutGuide type="bottom" id="k6z-3F-Fkd"/>
@@ -525,7 +525,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tpz-cW-eAo">
-                                <rect key="frame" x="116" y="474" width="143" height="40"/>
+                                <rect key="frame" x="116" y="519" width="143" height="40"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="4ix-rJ-NhL"/>
@@ -535,7 +535,7 @@
                                     <color key="titleColor" red="0.0066731770829999999" green="0.0087890625" blue="0.003173828125" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="Qhw-SD-ta0" kind="show" id="hIP-oA-dka">
+                                    <segue destination="Qhw-SD-ta0" kind="show" animates="NO" id="hIP-oA-dka">
                                         <nil key="action"/>
                                     </segue>
                                 </connections>
@@ -549,7 +549,7 @@
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zNe-U1-fm2">
-                                <rect key="frame" x="116" y="407" width="144" height="40"/>
+                                <rect key="frame" x="115" y="452" width="144" height="40"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="144" id="4vJ-O1-VP8"/>
@@ -559,27 +559,46 @@
                                     <color key="titleColor" red="0.0066731770829999999" green="0.0087890625" blue="0.003173828125" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="vXZ-lx-hvc" kind="show" id="RYx-o9-GAa"/>
+                                    <segue destination="vXZ-lx-hvc" kind="show" animates="NO" id="RYx-o9-GAa"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BC4-91-z7t">
+                                <rect key="frame" x="115" y="379" width="144" height="40"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="144" id="6GR-de-bnZ"/>
+                                    <constraint firstAttribute="height" constant="40" id="sbD-8P-J1T"/>
+                                </constraints>
+                                <state key="normal" title="Resume">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="resumeDrawing:" destination="LIa-HP-rGa" eventType="touchUpInside" id="5Cm-Ml-RHz"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.73662934369999999" green="0.90901568840000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="btc-dN-yQa" firstAttribute="centerY" secondItem="770-2c-Bcl" secondAttribute="centerY" id="4Wa-eP-hq3"/>
+                            <constraint firstItem="zNe-U1-fm2" firstAttribute="top" secondItem="BC4-91-z7t" secondAttribute="bottom" constant="33" id="6Cu-IW-hKV"/>
                             <constraint firstItem="Tpz-cW-eAo" firstAttribute="centerX" secondItem="770-2c-Bcl" secondAttribute="centerX" id="GbI-8P-WEv"/>
+                            <constraint firstItem="BC4-91-z7t" firstAttribute="top" secondItem="btc-dN-yQa" secondAttribute="bottom" constant="8" id="KUf-Ij-NAS"/>
                             <constraint firstItem="8O5-xr-c5C" firstAttribute="top" secondItem="xpj-Fa-sNG" secondAttribute="bottom" constant="75" id="KcV-0K-jNs"/>
                             <constraint firstItem="Tpz-cW-eAo" firstAttribute="top" secondItem="zNe-U1-fm2" secondAttribute="bottom" constant="27" id="SHI-bC-8mP"/>
-                            <constraint firstItem="zNe-U1-fm2" firstAttribute="top" secondItem="btc-dN-yQa" secondAttribute="bottom" constant="36" id="ahU-14-heH"/>
                             <constraint firstItem="btc-dN-yQa" firstAttribute="centerX" secondItem="770-2c-Bcl" secondAttribute="centerX" id="cEG-3k-oFB"/>
+                            <constraint firstItem="BC4-91-z7t" firstAttribute="centerX" secondItem="770-2c-Bcl" secondAttribute="centerX" id="eRE-YF-Gcm"/>
                             <constraint firstItem="btc-dN-yQa" firstAttribute="top" secondItem="8O5-xr-c5C" secondAttribute="bottom" constant="26" id="gyE-9g-dnz"/>
                             <constraint firstItem="8O5-xr-c5C" firstAttribute="centerX" secondItem="770-2c-Bcl" secondAttribute="centerX" id="hz6-GY-twe"/>
                             <constraint firstItem="zNe-U1-fm2" firstAttribute="centerX" secondItem="770-2c-Bcl" secondAttribute="centerX" id="z5w-z4-Cr5"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="resumeButton" destination="BC4-91-z7t" id="pIF-mq-hR9"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Onp-az-XZd" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-612" y="458"/>
+            <point key="canvasLocation" x="-663.20000000000005" y="475.41229385307349"/>
         </scene>
         <!--Rotation Lock-->
         <scene sceneID="dhl-e5-GX8">
@@ -600,7 +619,7 @@
                                     <color key="titleColor" red="0.29084335430000002" green="0.68459760479999998" blue="0.83260091150000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="LIa-HP-rGa" kind="show" id="rB0-S0-4As">
+                                    <segue destination="LIa-HP-rGa" kind="show" animates="NO" id="rB0-S0-4As">
                                         <nil key="action"/>
                                     </segue>
                                 </connections>
