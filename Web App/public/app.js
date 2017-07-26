@@ -38,26 +38,30 @@ function connect() {
     console.log("Error: " + error.code);
   });
 
-  //Listens for realtime updates
   const drawingObject = ref.child(access_code);
   const strokesList = drawingObject.child('strokes');
   const numAttrKeys = 5
-
-//TODO clean up code
-//TODO NOT REGISTERING REGULAR DOTS
-
+  
+  //Listens for realtime updates
   strokesList.on("child_changed", function(snapshot) {
-    const numCoordParts = (snapshot.numChildren() - 5) 
+    const numCoordParts = (snapshot.numChildren() - numAttrKeys) 
 
-    if (numCoordParts % 2 == 0 && numCoordParts > 2) { //there is more than  one coordinate. ok.
+    if (numCoordParts % 2 == 0 && numCoordParts > 2) { //there is more than  one coordinate
       const numCoords = numCoordParts / 2;
       const toX = snapshot.child("x" + (numCoords)).val(); //last coordinate
       const toY = snapshot.child("y" + (numCoords)).val();
       const fromX = snapshot.child("x" + (numCoords - 1)).val();
       const fromY = snapshot.child("y" + (numCoords - 1)).val();
-      draw(fromX, fromY, toX, toY, snapshot.child("red").val(), snapshot.child("green").val(),  snapshot.child("blue").val(), snapshot.child("opacity").val(), snapshot.child("brush_width").val()) 
+      const r = snapshot.child("red").val();
+      const g = snapshot.child("green").val();
+      const b = snapshot.child("blue").val();
+      const a = snapshot.child("opacity").val();
+      const opacity = snapshot.child("brush_width").val();
+      draw(fromX, fromY, toX, toY, r, g, b, a, opacity) 
 
-    // updateCanvas(snapshot);
+    }
+    else if (numCoordParts % 2 == 0 && numCoordParts == 2) { //this is a point
+      //TODO insert code to draw dots
     }
 
   });
@@ -120,7 +124,7 @@ function init( data ) {
 }
 
 //Reset canvas
-//TODO write
+//TODO complete
 function reset() {
   console.log("finish this method");
 }
