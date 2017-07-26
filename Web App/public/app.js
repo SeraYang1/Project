@@ -41,8 +41,10 @@ function connect() {
   const drawingObject = ref.child(access_code);
   const strokesList = drawingObject.child('strokes');
   const numAttrKeys = 5
-  
+ 
   //Listens for realtime updates
+  //TODO clean up code. Global vars good practice?
+
   strokesList.on("child_changed", function(snapshot) {
     const numCoordParts = (snapshot.numChildren() - numAttrKeys) 
 
@@ -57,11 +59,18 @@ function connect() {
       const b = snapshot.child("blue").val();
       const a = snapshot.child("opacity").val();
       const opacity = snapshot.child("brush_width").val();
-      draw(fromX, fromY, toX, toY, r, g, b, a, opacity) 
+      draw(fromX, fromY, toX, toY, r, g, b, a, opacity);
 
     }
-    else if (numCoordParts % 2 == 0 && numCoordParts == 2) { //this is a point
-      //TODO insert code to draw dots
+    else if (numCoordParts == 2) { //this is a point
+      const x = snapshot.child("x1").val(); //last coordinate
+      const y = snapshot.child("y1").val();
+      const r = snapshot.child("red").val();
+      const g = snapshot.child("green").val();
+      const b = snapshot.child("blue").val();
+      const a = snapshot.child("opacity").val();
+      const opacity = snapshot.child("brush_width").val();
+      drawPoint( x, y, r, g, b, a, opacity );
     }
 
   });
@@ -95,38 +104,38 @@ $('#close').click(function() {
 
 // Initializing the canvas
 
-//TODO NOT REGISTERING REGULAR DOTS
 function init( data ) {
   var c = document.getElementById("canvas");
   c.height = data.screen_height;
   c.width = data.screen_width;
-
-  var ctx = c.getContext("2d");
-  ctx.fillStyle = "#fff";
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  reset();
 
   var strokes = data.strokes;
   for ( var i = 1; i <= data.current_stroke; i++ ) {
-
-    var numOfCoords = JSON.stringify(strokes[1]).split('x').length;
-    // console.log(numOfCoords)
-    curr = strokes[i];
-    if (numOfCoords == 1) {
-      console.log("jej"); //currently not happening for points
-      draw( curr['x'+1], curr['y'+1], curr['x'+1], curr['y'+1], curr['red'], curr['green'], curr['blue'], curr['opacity'], curr['brush_width']);
-    }
-    else {
-      for ( var j = 1; j < numOfCoords - 1; j++ ) {
-        draw( curr['x'+j], curr['y'+j], curr['x'+(j+1)], curr['y'+(j+1)], curr['red'], curr['green'], curr['blue'], curr['opacity'], curr['brush_width'] );
-      }
-    }
+    drawStroke( strokes[i] );
   }
 }
 
 //Reset canvas
-//TODO complete
 function reset() {
-  console.log("finish this method");
+  var ctx = document.getElementById('canvas').getContext("2d");
+  ctx.fillStyle = "#fff";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+}
+
+// Drawing a single stroke
+
+function drawStroke( stroke ) {
+  var numOfCoords = JSON.stringify(stroke).split('x').length - 1;
+
+  if (numOfCoords == 1) {
+    drawPoint( stroke['x'+1], stroke['y'+1], stroke['red'], stroke['green'], stroke['blue'], stroke['opacity'], stroke['brush_width']);
+  }
+  else {
+    for ( var j = 1; j < numOfCoords; j++ ) {
+      draw( stroke['x'+j], stroke['y'+j], stroke['x'+(j+1)], stroke['y'+(j+1)], stroke['red'], stroke['green'], stroke['blue'], stroke['opacity'], stroke['brush_width'] );
+    }
+  }
 }
 
 // Generic draw function on a canvas
@@ -138,11 +147,17 @@ function draw( x1, y1, x2, y2, r, g, b, a, thickness ) {
   ctx.lineCap = 'round';
   ctx.beginPath();
   ctx.moveTo(x1, y1);
-  ctx.strokeStyle = "rgba("+r+", "+g+", "+b+","+a+")";
+  ctx.strokeStyle = "rgba("+r+", "+g+", "+b+", "+a+")";
   ctx.lineWidth = thickness;
   ctx.lineTo(x2, y2);
   ctx.closePath();
   ctx.stroke();
+}
+
+// Drawing a single point
+
+function drawPoint( x, y, r, g, b, a, thickness ) {
+  draw( x, y, x+0.4, y+0.4, r, g, b, a, thickness);
 }
 
 // Download button on canvas (saves as file)
