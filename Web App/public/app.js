@@ -43,8 +43,14 @@ function connect() {
   const numAttrKeys = 5
  
   //Listens for realtime updates
-  //TODO clean up code. Global vars good practice?
-
+  //TODO clean up code. Global vars good practice? can I have the vars here above?
+  //Can track if stroke changed & adjust vars accordingly
+  var strokeNo;
+  var r;
+  var g;
+  var b;
+  var a;
+  var opacity;
   strokesList.on("child_changed", function(snapshot) {
     const numCoordParts = (snapshot.numChildren() - numAttrKeys) 
 
@@ -54,22 +60,22 @@ function connect() {
       const toY = snapshot.child("y" + (numCoords)).val();
       const fromX = snapshot.child("x" + (numCoords - 1)).val();
       const fromY = snapshot.child("y" + (numCoords - 1)).val();
-      const r = snapshot.child("red").val();
-      const g = snapshot.child("green").val();
-      const b = snapshot.child("blue").val();
-      const a = snapshot.child("opacity").val();
-      const opacity = snapshot.child("brush_width").val();
+      // const r = snapshot.child("red").val();
+      // const g = snapshot.child("green").val();
+      // const b = snapshot.child("blue").val();
+      // const a = snapshot.child("opacity").val();
+      // const opacity = snapshot.child("brush_width").val();
       draw(fromX, fromY, toX, toY, r, g, b, a, opacity);
 
     }
     else if (numCoordParts == 2) { //this is a point
       const x = snapshot.child("x1").val(); //last coordinate
       const y = snapshot.child("y1").val();
-      const r = snapshot.child("red").val();
-      const g = snapshot.child("green").val();
-      const b = snapshot.child("blue").val();
-      const a = snapshot.child("opacity").val();
-      const opacity = snapshot.child("brush_width").val();
+      r = snapshot.child("red").val();
+      g = snapshot.child("green").val();
+      b = snapshot.child("blue").val();
+      a = snapshot.child("opacity").val();
+      opacity = snapshot.child("brush_width").val();
       drawPoint( x, y, r, g, b, a, opacity );
     }
 
@@ -147,6 +153,9 @@ function draw( x1, y1, x2, y2, r, g, b, a, thickness ) {
   ctx.lineCap = 'round';
   ctx.beginPath();
   ctx.moveTo(x1, y1);
+  console.log(r)
+  console.log(g)
+  console.log(b)
   ctx.strokeStyle = "rgba("+r+", "+g+", "+b+", "+a+")";
   ctx.lineWidth = thickness;
   ctx.lineTo(x2, y2);

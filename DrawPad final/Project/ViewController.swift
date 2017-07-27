@@ -8,12 +8,14 @@
 
 import UIKit
 import FirebaseDatabase
+import FirebaseAuth
 
 class ViewController: UIViewController {
     
     @IBOutlet weak var mainImageView: UIImageView!
     @IBOutlet weak var tempImageView: UIImageView!
     let ref = Database.database().reference()
+    let authRef = Auth.auth()
     var userId: String!
     var strokeCount: Int!
     var coordinateCount: Int!
@@ -40,8 +42,28 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if (authRef.currentUser == nil) {
+            print("no user")
+            authRef.signInAnonymously(completion: { (user, error) in
+                if error != nil {
+                    print(error)
+                    print("failed")
+                    return
+                }
+                else {
+                    print("here")
+                }
+                print ("user logged in anonymously with uid: " + user!.uid)
+            })
+            
+            }
+            else {
+            print("already signed in")
+        }
+        
         userId = self.ref.child("users").childByAutoId().key //users list
-        self.ref.child("users").child(userId).setValue("ok")
+//        let newUserRef = self.ref.child("users").child(userId)
+//        newUserRef.setValue("ok")
         if UIDevice.current.orientation == UIDeviceOrientation.landscapeLeft || UIDevice.current.orientation == UIDeviceOrientation.landscapeRight {
             self.ref.child(userId).child("screen_width").setValue(view.frame.height)
             self.ref.child(userId).child("screen_height").setValue(view.frame.width)
@@ -77,15 +99,16 @@ class ViewController: UIViewController {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         strokeCount = strokeCount + 1
+        print("here")
         swiped = false
         if let touch = touches.first {
             lastPoint = touch.location(in: self.view)
         }
         self.ref.child(userId).child("strokes").child(String(strokeCount)).child("brush_width").setValue(brushWidth)
         self.ref.child(userId).child("strokes").child(String(strokeCount)).child("opacity").setValue(opacity)
-        self.ref.child(userId).child("strokes").child(String(strokeCount)).child("red").setValue(red)
-        self.ref.child(userId).child("strokes").child(String(strokeCount)).child("green").setValue(green)
-        self.ref.child(userId).child("strokes").child(String(strokeCount)).child("blue").setValue(blue)
+        self.ref.child(userId).child("strokes").child(String(strokeCount)).child("red").setValue(red * 255)
+        self.ref.child(userId).child("strokes").child(String(strokeCount)).child("green").setValue(green * 255)
+        self.ref.child(userId).child("strokes").child(String(strokeCount)).child("blue").setValue(blue * 255)
 
 
         self.ref.child(userId).child("strokes").child(String(strokeCount)).child("x".appending(String(coordinateCount))).setValue(Float(lastPoint.x))
@@ -139,7 +162,6 @@ class ViewController: UIViewController {
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        print("ended")
         if !swiped {
             // draw a single point
             drawLineFrom(lastPoint, toPoint: lastPoint)
