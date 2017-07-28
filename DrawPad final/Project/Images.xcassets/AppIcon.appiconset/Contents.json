@@ -3,7 +3,7 @@
     {
       "size" : "20x20",
       "idiom" : "iphone",
-      "filename" : "Webp.net-resizeimage.png",
+      "filename" : "Webp.net-resizeimage-1.png",
       "scale" : "2x"
     },
     {
@@ -15,37 +15,37 @@
     {
       "size" : "29x29",
       "idiom" : "iphone",
-      "filename" : "Webp.net-resizeimage (3).png",
+      "filename" : "Webp.net-resizeimage (2).png",
       "scale" : "2x"
     },
     {
       "size" : "29x29",
       "idiom" : "iphone",
-      "filename" : "Webp.net-resizeimage (4).png",
+      "filename" : "Webp.net-resizeimage (3).png",
       "scale" : "3x"
     },
     {
       "size" : "40x40",
+      "idiom" : "iphone",
+      "filename" : "Webp.net-resizeimage (4).png",
+      "scale" : "2x"
+    },
+    {
+      "size" : "40x40",
+      "idiom" : "iphone",
+      "filename" : "Webp.net-resizeimage (5)-1.png",
+      "scale" : "3x"
+    },
+    {
+      "size" : "60x60",
       "idiom" : "iphone",
       "filename" : "Webp.net-resizeimage (5).png",
       "scale" : "2x"
     },
     {
-      "size" : "40x40",
-      "idiom" : "iphone",
-      "filename" : "Webp.net-resizeimage (6)-1.png",
-      "scale" : "3x"
-    },
-    {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "Webp.net-resizeimage (6)-2.png",
-      "scale" : "2x"
-    },
-    {
-      "size" : "60x60",
-      "idiom" : "iphone",
-      "filename" : "Webp.net-resizeimage (7).png",
+      "filename" : "Webp.net-resizeimage (6).png",
       "scale" : "3x"
     }
   ],

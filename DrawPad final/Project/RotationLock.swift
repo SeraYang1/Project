@@ -10,9 +10,17 @@ import UIKit
 
 class RotationLock: UIViewController{
     
-    override var shouldAutorotate: Bool {
-        return false
+    @IBOutlet weak var instructionsTopSpace: NSLayoutConstraint!
+    
+    override func viewDidLoad() {
+        var height = UIScreen.main.bounds.height
+        if(UIScreen.main.bounds.width > height){
+            height = UIScreen.main.bounds.width
+        }
+        
+        instructionsTopSpace.constant = -height * CGFloat(0.35)
     }
+    
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .portrait

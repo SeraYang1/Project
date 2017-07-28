@@ -6,7 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -16,22 +16,34 @@
             <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Project" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="kId-c2-rCX">
-                    <rect key="frame" x="20" y="140" width="441" height="43"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="36"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Background" translatesAutoresizingMaskIntoConstraints="NO" id="fbJ-eC-079">
+                    <rect key="frame" x="-16" y="-16" width="512" height="512"/>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Icon" translatesAutoresizingMaskIntoConstraints="NO" id="LXx-6R-T9o">
+                    <rect key="frame" x="59" y="148" width="362" height="145"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="362" id="DKy-RU-Il0"/>
+                        <constraint firstAttribute="width" secondItem="LXx-6R-T9o" secondAttribute="height" multiplier="362:145" id="nNt-w3-2nt"/>
+                    </constraints>
+                </imageView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="kId-c2-rCX" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="bottom" multiplier="1/3" constant="1" id="5cJ-9S-tgC"/>
-                <constraint firstAttribute="centerX" secondItem="kId-c2-rCX" secondAttribute="centerX" id="Koa-jz-hwk"/>
-                <constraint firstItem="kId-c2-rCX" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" symbolic="YES" id="fvb-Df-36g"/>
+                <constraint firstItem="LXx-6R-T9o" firstAttribute="centerY" secondItem="fbJ-eC-079" secondAttribute="centerY" id="0NC-3a-9fy"/>
+                <constraint firstAttribute="trailing" secondItem="fbJ-eC-079" secondAttribute="trailing" constant="-16" id="0jw-az-3Qi"/>
+                <constraint firstItem="fbJ-eC-079" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="-16" id="MG9-Ri-dbW"/>
+                <constraint firstItem="fbJ-eC-079" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="-16" id="TLw-g7-UaF"/>
+                <constraint firstAttribute="bottom" secondItem="fbJ-eC-079" secondAttribute="bottom" constant="-16" id="W6N-Qe-WJO"/>
+                <constraint firstItem="LXx-6R-T9o" firstAttribute="width" secondItem="fbJ-eC-079" secondAttribute="height" multiplier="181:256" id="ZDF-V4-Ltn"/>
+                <constraint firstItem="LXx-6R-T9o" firstAttribute="centerX" secondItem="fbJ-eC-079" secondAttribute="centerX" id="oUi-Jo-YnT"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="548" y="455"/>
         </view>
     </objects>
+    <resources>
+        <image name="Background" width="988" height="1757"/>
+        <image name="Icon" width="562" height="206"/>
+    </resources>
 </document>
