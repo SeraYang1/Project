@@ -8,13 +8,10 @@ protocol SettingsViewControllerDelegate: class {
 class SettingsViewController: UIViewController, UINavigationControllerDelegate {
 
   @IBOutlet weak var sliderBrush: UISlider!
-  @IBOutlet weak var sliderOpacity: UISlider!
 
   @IBOutlet weak var imageViewBrush: UIImageView!
-  @IBOutlet weak var imageViewOpacity: UIImageView!
 
   @IBOutlet weak var labelBrush: UILabel!
-  @IBOutlet weak var labelOpacity: UILabel!
 
   @IBOutlet weak var sliderRed: UISlider!
   @IBOutlet weak var sliderGreen: UISlider!
@@ -31,10 +28,6 @@ class SettingsViewController: UIViewController, UINavigationControllerDelegate {
   var blue: CGFloat = 0.0
   
   weak var delegate: SettingsViewControllerDelegate?
-    
-    override var shouldAutorotate: Bool {
-        return false
-    }
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .portrait
@@ -104,19 +97,6 @@ class SettingsViewController: UIViewController, UINavigationControllerDelegate {
     imageViewBrush.image = UIGraphicsGetImageFromCurrentImageContext()
     UIGraphicsEndImageContext()
    
-    UIGraphicsBeginImageContext(imageViewBrush.frame.size)
-    context = UIGraphicsGetCurrentContext()
-   
-    context?.setLineCap(CGLineCap.round)
-    context?.setLineWidth(20)
-    context?.move(to: CGPoint(x: 45.0, y: 45.0))
-    context?.addLine(to: CGPoint(x: 45.0, y: 45.0))
-   
-    context?.setStrokeColor(red: red, green: green, blue: blue, alpha: 1.0)
-    context?.strokePath()
-    imageViewOpacity.image = UIGraphicsGetImageFromCurrentImageContext()
-   
-    UIGraphicsEndImageContext()
   }
   
   override func viewWillAppear(_ animated: Bool) {
