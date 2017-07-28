@@ -20,6 +20,19 @@ class SettingsViewController: UIViewController, UINavigationControllerDelegate {
   @IBOutlet weak var labelRed: UILabel!
   @IBOutlet weak var labelGreen: UILabel!
   @IBOutlet weak var labelBlue: UILabel!
+    
+    //set all constraints dynamic based on iphone/ipad
+    @IBOutlet weak var imageBrushHeight: NSLayoutConstraint!
+    
+    @IBOutlet weak var brushRedHeight: NSLayoutConstraint!
+    @IBOutlet weak var redGreenHeight: NSLayoutConstraint!
+    @IBOutlet weak var greenBlueHeight: NSLayoutConstraint!
+    
+    @IBOutlet weak var copiedBlueHeight: NSLayoutConstraint!
+    @IBOutlet weak var codeResetHeight: NSLayoutConstraint!
+    
+    @IBOutlet weak var colorSliderWidth: NSLayoutConstraint!
+    @IBOutlet weak var brushSliderWidth: NSLayoutConstraint!
   
   var brush: CGFloat = 10.0
 //  var opacity: CGFloat = 1.0
@@ -41,6 +54,19 @@ class SettingsViewController: UIViewController, UINavigationControllerDelegate {
     copyButton.layer.cornerRadius = 5
 
     // Do any additional setup after loading the view.
+    var height = UIScreen.main.bounds.height
+    var width = UIScreen.main.bounds.width
+    colorSliderWidth.constant = width * CGFloat(0.6)
+    brushSliderWidth.constant = width * CGFloat(0.55)
+    
+    imageBrushHeight.constant = height * CGFloat(0.05)
+    
+    brushRedHeight.constant = height * CGFloat(0.03)
+    redGreenHeight.constant = height * CGFloat(0.03)
+    greenBlueHeight.constant = height * CGFloat(0.03)
+    
+    copiedBlueHeight.constant = height * CGFloat(0.05)
+    codeResetHeight.constant = height * CGFloat(0.1)
   }
 
   override func didReceiveMemoryWarning() {

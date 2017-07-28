@@ -61,7 +61,7 @@ class ViewController: UIViewController {
             print("Already signed in")
             self.userId = authRef.currentUser?.uid
         }
-        
+        userId = "I0jrHfkx4USQmaLJldEtDTtXaqF2"
         let newUserRef = self.ref.child("users").child(userId)
         newUserRef.setValue("ok") //TODO replace with password and figure out sign out.
    
