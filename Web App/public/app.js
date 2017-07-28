@@ -40,17 +40,13 @@ function connect() {
 
   const drawingObject = ref.child(access_code);
   const strokesList = drawingObject.child('strokes');
-  const numAttrKeys = 5
+  const numAttrKeys = 4
  
   //Listens for realtime updates
   //TODO clean up code. Global vars good practice? can I have the vars here above?
   //Can track if stroke changed & adjust vars accordingly
   var strokeNo;
-  var r;
-  var g;
-  var b;
-  var a;
-  var opacity;
+  var thickness;
   strokesList.on("child_changed", function(snapshot) {
     const numCoordParts = (snapshot.numChildren() - numAttrKeys) 
 
@@ -60,23 +56,22 @@ function connect() {
       const toY = snapshot.child("y" + (numCoords)).val();
       const fromX = snapshot.child("x" + (numCoords - 1)).val();
       const fromY = snapshot.child("y" + (numCoords - 1)).val();
-      // const r = snapshot.child("red").val();
-      // const g = snapshot.child("green").val();
-      // const b = snapshot.child("blue").val();
+      const r = snapshot.child("red").val();
+      const g = snapshot.child("green").val();
+      const b = snapshot.child("blue").val();
       // const a = snapshot.child("opacity").val();
       // const opacity = snapshot.child("brush_width").val();
-      draw(fromX, fromY, toX, toY, r, g, b, a, opacity);
+      draw(fromX, fromY, toX, toY, r, g, b, 1, thickness);
 
     }
     else if (numCoordParts == 2) { //this is a point
       const x = snapshot.child("x1").val(); //last coordinate
       const y = snapshot.child("y1").val();
-      r = snapshot.child("red").val();
-      g = snapshot.child("green").val();
-      b = snapshot.child("blue").val();
-      a = snapshot.child("opacity").val();
-      opacity = snapshot.child("brush_width").val();
-      drawPoint( x, y, r, g, b, a, opacity );
+      const r = snapshot.child("red").val();
+      const g = snapshot.child("green").val();
+      const b = snapshot.child("blue").val();
+      thickness = snapshot.child("brush_width").val();
+      drawPoint( x, y, r, g, b, 1, thickness );
     }
 
   });
@@ -135,11 +130,11 @@ function drawStroke( stroke ) {
   var numOfCoords = JSON.stringify(stroke).split('x').length - 1;
 
   if (numOfCoords == 1) {
-    drawPoint( stroke['x'+1], stroke['y'+1], stroke['red'], stroke['green'], stroke['blue'], stroke['opacity'], stroke['brush_width']);
+    drawPoint( stroke['x'+1], stroke['y'+1], stroke['red'], stroke['green'], stroke['blue'], 1, stroke['brush_width']);
   }
   else {
     for ( var j = 1; j < numOfCoords; j++ ) {
-      draw( stroke['x'+j], stroke['y'+j], stroke['x'+(j+1)], stroke['y'+(j+1)], stroke['red'], stroke['green'], stroke['blue'], stroke['opacity'], stroke['brush_width'] );
+      draw( stroke['x'+j], stroke['y'+j], stroke['x'+(j+1)], stroke['y'+(j+1)], stroke['red'], stroke['green'], stroke['blue'], 1, stroke['brush_width'] );
     }
   }
 }
@@ -153,6 +148,11 @@ function draw( x1, y1, x2, y2, r, g, b, a, thickness ) {
   ctx.lineCap = 'round';
   ctx.beginPath();
   ctx.moveTo(x1, y1);
+
+  r = Math.round(r);
+  g = Math.round(g);
+  b = Math.round(b);
+
   console.log(r)
   console.log(g)
   console.log(b)
