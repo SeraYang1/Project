@@ -2,7 +2,7 @@ import UIKit
 
 protocol SettingsViewControllerDelegate: class {
   func settingsViewControllerFinished(_ settingsViewController: SettingsViewController)
-    func reset()
+  func reset()
 }
 
 class SettingsViewController: UIViewController, UINavigationControllerDelegate {
@@ -25,7 +25,7 @@ class SettingsViewController: UIViewController, UINavigationControllerDelegate {
   @IBOutlet weak var labelBlue: UILabel!
   
   var brush: CGFloat = 10.0
-  var opacity: CGFloat = 1.0
+//  var opacity: CGFloat = 1.0
   var red: CGFloat = 0.0
   var green: CGFloat = 0.0
   var blue: CGFloat = 0.0
@@ -42,6 +42,10 @@ class SettingsViewController: UIViewController, UINavigationControllerDelegate {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    accessCode.text = SettingsViewController.generatedCode
+    copiedTopBar.isHidden = true
+    copyButton.layer.cornerRadius = 5
 
     // Do any additional setup after loading the view.
   }
@@ -52,7 +56,7 @@ class SettingsViewController: UIViewController, UINavigationControllerDelegate {
   }
 
   @IBAction func close(_ sender: AnyObject) {
-    dismiss(animated: true, completion: nil)
+    dismiss(animated: false, completion: nil)
     self.delegate?.settingsViewControllerFinished(self)
   }
     
@@ -79,8 +83,8 @@ class SettingsViewController: UIViewController, UINavigationControllerDelegate {
       brush = CGFloat(sender.value)
       labelBrush.text = NSString(format: "%.2f", brush.native) as String
     } else {
-      opacity = CGFloat(sender.value)
-      labelOpacity.text = NSString(format: "%.2f", opacity.native) as String
+//      opacity = CGFloat(sender.value)
+//      labelOpacity.text = NSString(format: "%.2f", opacity.native) as String
     }
      
     drawPreview()
@@ -108,7 +112,7 @@ class SettingsViewController: UIViewController, UINavigationControllerDelegate {
     context?.move(to: CGPoint(x: 45.0, y: 45.0))
     context?.addLine(to: CGPoint(x: 45.0, y: 45.0))
    
-    context?.setStrokeColor(red: red, green: green, blue: blue, alpha: opacity)
+    context?.setStrokeColor(red: red, green: green, blue: blue, alpha: 1.0)
     context?.strokePath()
     imageViewOpacity.image = UIGraphicsGetImageFromCurrentImageContext()
    
@@ -120,8 +124,8 @@ class SettingsViewController: UIViewController, UINavigationControllerDelegate {
    
     sliderBrush.value = Float(brush)
     labelBrush.text = NSString(format: "%.1f", brush.native) as String
-    sliderOpacity.value = Float(opacity)
-    labelOpacity.text = NSString(format: "%.1f", opacity.native) as String
+//    sliderOpacity.value = Float(opacity)
+//    labelOpacity.text = NSString(format: "%.1f", opacity.native) as String
     sliderRed.value = Float(red * 255.0)
     labelRed.text = NSString(format: "%d", Int(sliderRed.value)) as String
     sliderGreen.value = Float(green * 255.0)
@@ -145,5 +149,36 @@ class SettingsViewController: UIViewController, UINavigationControllerDelegate {
   // Pass the selected object to the new view controller.
   }
   */
+    
+    static var generatedCode = "CODE"
+    var time = 0
+    var timer : Timer!
+    @IBOutlet weak var copiedTopBar: UILabel!
+    @IBOutlet weak var accessCode: UITextField!
+    @IBOutlet weak var copyButton: UIButton!
+    
+    @IBAction func copyCodeButtonClicked(_ sender: Any) {
+        print(SettingsViewController.generatedCode)
+        UIPasteboard.general.string = accessCode.text
+        copiedTopBar.isHidden = false
+        startTimer()
+    }
+    
+    func startTimer() {
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self,   selector: (#selector(copiedDisappear)), userInfo: nil, repeats: true)
+    }
+    
+    func copiedDisappear(){
+        time = time + 1
+        if(time == 2){
+            copiedTopBar.isHidden = true
+            timer.invalidate()
+        }
+    }
+    
+    static func setCode(s: String){
+        generatedCode = s
+    }
+
 
 }

@@ -42,6 +42,8 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Authenticate user
         if (authRef.currentUser == nil) {
             print("no user")
             authRef.signInAnonymously(completion: { (user, error) in
@@ -50,20 +52,23 @@ class ViewController: UIViewController {
                     print("failed")
                     return
                 }
-                else {
-                    print("here")
-                }
-                print ("user logged in anonymously with uid: " + user!.uid)
+                print ("User logged in anonymously with uid: " + user!.uid)
+                self.userId = user!.uid
             })
             
             }
             else {
-            print("already signed in")
+            print("Already signed in")
+            self.userId = authRef.currentUser?.uid
         }
         
-        userId = self.ref.child("users").childByAutoId().key //users list
-//        let newUserRef = self.ref.child("users").child(userId)
-//        newUserRef.setValue("ok")
+        let newUserRef = self.ref.child("users").child(userId)
+        newUserRef.setValue("ok") //TODO replace with password and figure out sign out.
+   
+        
+        //passes the id to settings so it can be copied as access code
+        SettingsViewController.setCode(s: userId)
+
         if UIDevice.current.orientation == UIDeviceOrientation.landscapeLeft || UIDevice.current.orientation == UIDeviceOrientation.landscapeRight {
             self.ref.child(userId).child("screen_width").setValue(view.frame.height)
             self.ref.child(userId).child("screen_height").setValue(view.frame.width)
@@ -74,9 +79,9 @@ class ViewController: UIViewController {
         }
         self.ref.child("users").child(userId).onDisconnectRemoveValue()
         self.ref.child(userId).onDisconnectRemoveValue()
+
         strokeCount = 0
         coordinateCount = 1
-
     }
     
     override var shouldAutorotate: Bool {
@@ -92,9 +97,9 @@ class ViewController: UIViewController {
         
         (red, green, blue) = colors[index]
         
-        if index == colors.count - 1 {
-            opacity = 1.0
-        }
+//        if index == colors.count - 1 {
+//            opacity = 1.0
+//        }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -105,7 +110,7 @@ class ViewController: UIViewController {
             lastPoint = touch.location(in: self.view)
         }
         self.ref.child(userId).child("strokes").child(String(strokeCount)).child("brush_width").setValue(brushWidth)
-        self.ref.child(userId).child("strokes").child(String(strokeCount)).child("opacity").setValue(opacity)
+//        self.ref.child(userId).child("strokes").child(String(strokeCount)).child("opacity").setValue(opacity)
         self.ref.child(userId).child("strokes").child(String(strokeCount)).child("red").setValue(red * 255)
         self.ref.child(userId).child("strokes").child(String(strokeCount)).child("green").setValue(green * 255)
         self.ref.child(userId).child("strokes").child(String(strokeCount)).child("blue").setValue(blue * 255)
@@ -140,7 +145,7 @@ class ViewController: UIViewController {
         
         // 5
         tempImageView.image = UIGraphicsGetImageFromCurrentImageContext()
-        tempImageView.alpha = opacity
+        tempImageView.alpha = 1
         UIGraphicsEndImageContext()
         
     }
@@ -170,38 +175,43 @@ class ViewController: UIViewController {
         // Merge tempImageView into mainImageView
         UIGraphicsBeginImageContext(mainImageView.frame.size)
         mainImageView.image?.draw(in: CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height), blendMode: CGBlendMode.normal, alpha: 1.0)
-        tempImageView.image?.draw(in: CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height), blendMode: CGBlendMode.normal, alpha: opacity)
+        tempImageView.image?.draw(in: CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height), blendMode: CGBlendMode.normal, alpha: 1)
         mainImageView.image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         
         tempImageView.image = nil
         self.ref.child(userId).child("current_stroke").setValue(strokeCount) //last one saved in db
         coordinateCount = 1         //resets in preparation for next batch of coord data
-
+        
     }
-
+    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if(segue.identifier == "settings"){
             let settingsViewController = segue.destination as! SettingsViewController
             settingsViewController.delegate = self
             settingsViewController.brush = brushWidth
-            settingsViewController.opacity = opacity
+//            settingsViewController.opacity = opacity
             settingsViewController.red = red
             settingsViewController.green = green
             settingsViewController.blue = blue
         }
+        
+        if(segue.identifier == "Intro"){
+            let introViewController = segue.destination as! IntroScreen
+            introViewController.firstTime = false
+        }
     }
     
     
- 
+    
     
 }
 
 extension ViewController: SettingsViewControllerDelegate {
     func settingsViewControllerFinished(_ settingsViewController: SettingsViewController) {
         self.brushWidth = settingsViewController.brush
-        self.opacity = settingsViewController.opacity
+//        self.opacity = settingsViewController.opacity
         self.red = settingsViewController.red
         self.green = settingsViewController.green
         self.blue = settingsViewController.blue
