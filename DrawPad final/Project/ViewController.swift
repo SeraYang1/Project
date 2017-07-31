@@ -15,7 +15,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var mainImageView: UIImageView!
     @IBOutlet weak var tempImageView: UIImageView!
     let ref = Database.database().reference()
-    let authRef = Auth.auth()
+//    let authRef = Auth.auth()
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     var userId: String!
     var strokeCount: Int!
     var coordinateCount: Int!
@@ -40,49 +41,73 @@ class ViewController: UIViewController {
         (1.0, 1.0, 1.0),
         ]
     
+    override func viewWillAppear(_ animated: Bool) {
+
+//        if (authRef.currentUser == nil) {         // Authenticate user
+//            print("no user")
+//            authRef.signInAnonymously(completion: { (user, error) in
+//                if error != nil {
+//                    print(error)
+//                    print("failed")
+//                    return
+//                }
+//                print ("User logged in anonymously with uid: " + user!.uid)
+//                self.userId = user!.uid
+                userId = appDelegate.getUserID()
+                let newUserRef = self.ref.child("users").child(self.userId)
+                newUserRef.setValue("ok") //TODO replace with password and figure out sign out.
+                
+                
+                //passes the id to settings so it can be copied as access code
+                SettingsViewController.setCode(s: self.userId)
+                
+                if UIDevice.current.orientation == UIDeviceOrientation.landscapeLeft || UIDevice.current.orientation == UIDeviceOrientation.landscapeRight {
+                    self.ref.child(self.userId).child("screen_width").setValue(self.view.frame.height)
+                    self.ref.child(self.userId).child("screen_height").setValue(self.view.frame.width)
+                }
+                else { //portrait
+                    self.ref.child(self.userId).child("screen_height").setValue(self.view.frame.height)
+                    self.ref.child(self.userId).child("screen_width").setValue(self.view.frame.width)
+                }
+                self.ref.child("users").child(self.userId).onDisconnectRemoveValue()
+                self.ref.child(self.userId).onDisconnectRemoveValue()
+                self.strokeCount = 0
+                self.coordinateCount = 1
+                
+                
+//            })
+//            
+//        }
+//        else {//SHOULD NEVER REACH HERE
+//            print("Already signed in")
+//            do {
+//                try self.authRef.currentUser?.delete(completion: { (error) in
+//                    if (error != nil) {
+//                        print ("ERROR")
+//                    }
+//                    else {
+//                        print ("OK")
+//                    }
+//                }) //TODO add this code when end session is called
+//
+//            }
+//            catch {
+//                print("fail")
+//            }
+//            do {
+//                try authRef.signOut()
+//            }
+//            catch {
+//                print("Unable to sign out")
+//            }
+//        }
+
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Authenticate user
-        if (authRef.currentUser == nil) {
-            print("no user")
-            authRef.signInAnonymously(completion: { (user, error) in
-                if error != nil {
-                    print(error)
-                    print("failed")
-                    return
-                }
-                print ("User logged in anonymously with uid: " + user!.uid)
-                self.userId = user!.uid
-            })
-            
-            }
-            else {
-            print("Already signed in")
-            self.userId = authRef.currentUser?.uid
-        }
-        userId = "I0jrHfkx4USQmaLJldEtDTtXaqF2"
-        let newUserRef = self.ref.child("users").child(userId)
-        newUserRef.setValue("ok") //TODO replace with password and figure out sign out.
-   
-        
-        //passes the id to settings so it can be copied as access code
-        SettingsViewController.setCode(s: userId)
-
-        if UIDevice.current.orientation == UIDeviceOrientation.landscapeLeft || UIDevice.current.orientation == UIDeviceOrientation.landscapeRight {
-            self.ref.child(userId).child("screen_width").setValue(view.frame.height)
-            self.ref.child(userId).child("screen_height").setValue(view.frame.width)
-        }
-        else { //portrait
-            self.ref.child(userId).child("screen_height").setValue(view.frame.height)
-            self.ref.child(userId).child("screen_width").setValue(view.frame.width)
-        }
-        self.ref.child("users").child(userId).onDisconnectRemoveValue()
-        self.ref.child(userId).onDisconnectRemoveValue()
-
-        strokeCount = 0
-        coordinateCount = 1
     }
+    
     
     override var shouldAutorotate: Bool {
         return true
