@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<html>
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>Project</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <script src="https://www.gstatic.com/firebasejs/4.1.3/firebase.js"></script>
+  </head>
+
+  <body>
+    <div id="splash">
+      <img id="icon" src="images/icon.png">
+      <div id="intro" style="display: none;">
+        <img id="title" src="images/title.png">
+        <div class="row">
+          <input type="text" name="access" id="access" placeholder="access code">
+          <button id="connect" onclick="connect()">Connect</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="app" style="display: none;">
+      <canvas id="canvas" width="100%" height="100%"></canvas>
+      <a id="download" style="position: fixed; bottom: 0; right: 0;"><i class="fa fa-download"></i></a>
+      <i id="close" class="fa fa-close" style="position: fixed; top: 0; right: 0;"></i>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="app.js"></script>
+    <script type="text/javascript">
+
+    </script>
+
+  </body>
+
+</html>
