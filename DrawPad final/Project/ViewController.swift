@@ -101,8 +101,6 @@
             self.ref.child(userId).child("strokes").child(String(strokeCount)).child("x".appending(String(coordinateCount))).setValue(Float(lastPoint.x))
             self.ref.child(userId).child("strokes").child(String(strokeCount)).child("y".appending(String(coordinateCount))).setValue(Float(lastPoint.y))
             coordinateCount = coordinateCount + 1
-            
-            
         }
         
         func drawLineFrom(_ fromPoint: CGPoint, toPoint: CGPoint) {
@@ -184,9 +182,6 @@
             }
         }
         
-        
-        
-        
     }
     
     extension ViewController: SettingsViewControllerDelegate {
@@ -196,9 +191,7 @@
             self.green = settingsViewController.green
             self.blue = settingsViewController.blue
         }
-        
-        
-        
+
         func reset() {
             mainImageView.image = nil
             self.ref.child(userId).child("strokes").setValue(nil)

@@ -35,7 +35,6 @@ class SettingsViewController: UIViewController, UINavigationControllerDelegate {
     @IBOutlet weak var brushSliderWidth: NSLayoutConstraint!
   
   var brush: CGFloat = 10.0
-//  var opacity: CGFloat = 1.0
   var red: CGFloat = 0.0
   var green: CGFloat = 0.0
   var blue: CGFloat = 0.0
@@ -52,7 +51,6 @@ class SettingsViewController: UIViewController, UINavigationControllerDelegate {
     copiedTopBar.isHidden = true
     copyButton.layer.cornerRadius = 5
 
-    // Do any additional setup after loading the view.
     var height = UIScreen.main.bounds.height
     var width = UIScreen.main.bounds.width
     colorSliderWidth.constant = width * CGFloat(0.6)
@@ -78,7 +76,6 @@ class SettingsViewController: UIViewController, UINavigationControllerDelegate {
     }
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
-    // Dispose of any resources that can be recreated.
   }
 
   @IBAction func close(_ sender: AnyObject) {
@@ -147,16 +144,6 @@ class SettingsViewController: UIViewController, UINavigationControllerDelegate {
     func navigationControllerSupportedInterfaceOrientations(navigationController: UINavigationController) -> UIInterfaceOrientationMask {
         return UIInterfaceOrientationMask.portrait
     }
-
-  /*
-  // MARK: - Navigation
-
-  // In a storyboard-based application, you will often want to do a little preparation before navigation
-  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-  // Get the new view controller using segue.destinationViewController.
-  // Pass the selected object to the new view controller.
-  }
-  */
     
     static var generatedCode = "CODE"
     var time = 0

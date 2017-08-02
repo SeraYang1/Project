@@ -1,5 +1,7 @@
 // Initialize Firebase
 var userID;
+var access_code;
+var ref;
 (function() {
 
   const config = {
@@ -12,67 +14,69 @@ var userID;
   };
   firebase.initializeApp(config);
   const auth = firebase.auth();
+
+  //Authenticate user
   if (auth.currentUser == null) {
     auth.signInAnonymously().then(function() { 
       this.userID = auth.currentUser.uid;
-      console.log("In else")
-      console.log(this.userID)
-      }).catch(function(error) { 
+      // console.log(this.userID)
+    }).catch(function(error) { 
       var errorCode = error.code;
       var errorMessage = error.message;
-      console.log("OK");
       if (errorCode === 'auth/operation-not-allowed') {
-       alert('You must enable Anonymous auth in the Firebase Console.');
+       alert('Error with the server. Try again later.');
       } else {
-       console.error(error);
+       alert ('Error. Try again later.')
       }
     });
   }
   else {
-      this.userID = auth.currentUser.uid;
-      console.log("In else")
-      console.log(this.userID)
+    this.userID = auth.currentUser.uid;
+    // console.log(this.userID)
 
   }
 
 }());
 
 // Reading access code input field and connecting to Firebase
+function login() {
+  ref.child(access_code).once("value").then(function(snapshot) {
+
+    $('#splash').hide();
+    $('#app').show();
+    init( snapshot.val() )
+
+  }, function (error) { //Logs in again, after user has been authenticated through Firebase
+    login()
+  });
+}
 
 function connect() {
-  //Authenticate user
-  
 
-  var access_code = $('#access').val().trim(); 
-  console.log(access_code)
-  var ref = firebase.database().ref();
+  access_code = $('#access').val().trim(); 
+  // console.log(access_code)
+  ref = firebase.database().ref();
+
+  //Grant user r/w access to specified location in database
   var userNode = ref.child('sharing').child(this.userID).child(access_code).set(""); 
   ref.child('sharing').child(this.userID).child(access_code).onDisconnect().remove();
 
   // Loads initial strokes (catch up with live version)
 
-  ref.child(access_code).once("value").then(function(snapshot) {
-
-      $('#splash').hide();
-      $('#app').show();
-      init( snapshot.val() ); 
-
-  }, function (error) {
-    alert('Not a valid access code. Please try again.'); //TODO fix
-  });
+  this.login()
   const drawingObject = ref.child(access_code);
   const strokesList = drawingObject.child('strokes');
   const numAttrKeys = 4
- 
+
   //Listens for realtime updates
   var strokeNo;
   var thickness;
   strokesList.on("child_changed", function(snapshot) {
     const numCoordParts = (snapshot.numChildren() - numAttrKeys) 
 
-    if (numCoordParts % 2 == 0 && numCoordParts > 2) { //there is more than  one coordinate
+    if (numCoordParts % 2 == 0 && numCoordParts > 2) { //There is more than  one coordinate
       const numCoords = numCoordParts / 2;
-      const toX = snapshot.child("x" + (numCoords)).val(); //last coordinate
+      const toX = snapshot.child("x" + (numCoords)).val(); //Last coordinate
       const toY = snapshot.child("y" + (numCoords)).val();
       const fromX = snapshot.child("x" + (numCoords - 1)).val();
       const fromY = snapshot.child("y" + (numCoords - 1)).val();
@@ -82,8 +86,8 @@ function connect() {
       draw(fromX, fromY, toX, toY, r, g, b, 1, thickness);
 
     }
-    else if (numCoordParts == 2) { //this is a point
-      const x = snapshot.child("x1").val(); //last coordinate
+    else if (numCoordParts == 2) { //This is a point
+      const x = snapshot.child("x1").val(); 
       const y = snapshot.child("y1").val();
       const r = snapshot.child("red").val();
       const g = snapshot.child("green").val();
@@ -96,16 +100,12 @@ function connect() {
 
   // Listens for reset event
   ref.child(access_code).on("child_removed", function(snapshot) {
-    console.log(snapshot.key)
     if (snapshot.key == "strokes") {
       reset();
     }
-    
   });
-    
+
 }
-
-
 
 // Opening animation
 
@@ -124,14 +124,20 @@ $('#close').click(function() {
 // Initializing the canvas
 
 function init( data ) {
-  var c = document.getElementById("canvas");
-  c.height = data.screen_height;
-  c.width = data.screen_width;
-  reset();
+  try {
+    var c = document.getElementById("canvas");
+    c.height = data.screen_height;
+    c.width = data.screen_width;
+    reset();
 
-  var strokes = data.strokes;
-  for ( var i = 1; i <= data.current_stroke; i++ ) {
-    drawStroke( strokes[i] );
+    var strokes = data.strokes;
+    for ( var i = 1; i <= data.current_stroke; i++ ) {
+      drawStroke( strokes[i] );
+    }
+  }
+  catch(err) {  // Error catching for access codes that don't exist
+    alert("Invalid Access Code");
+    window.location.href='http://localhost:5000'
   }
 }
 
@@ -200,11 +206,11 @@ function date() {
   var yyyy = today.getFullYear();
 
   if(dd<10) {
-      dd = '0'+dd
+    dd = '0'+dd
   } 
 
   if(mm<10) {
-      mm = '0'+mm
+    mm = '0'+mm
   } 
 
   today = mm + '-' + dd + '-' + yyyy;
