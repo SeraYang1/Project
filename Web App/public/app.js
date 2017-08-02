@@ -1,4 +1,5 @@
 // Initialize Firebase
+var userID;
 (function() {
 
   const config = {
@@ -10,59 +11,55 @@
     messagingSenderId: "225539781616"
   };
   firebase.initializeApp(config);
-  
+  const auth = firebase.auth();
+  if (auth.currentUser == null) {
+    auth.signInAnonymously().then(function() { 
+      this.userID = auth.currentUser.uid;
+      console.log("In else")
+      console.log(this.userID)
+      }).catch(function(error) { 
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      console.log("OK");
+      if (errorCode === 'auth/operation-not-allowed') {
+       alert('You must enable Anonymous auth in the Firebase Console.');
+      } else {
+       console.error(error);
+      }
+    });
+  }
+  else {
+      this.userID = auth.currentUser.uid;
+      console.log("In else")
+      console.log(this.userID)
+
+  }
 
 }());
 
 // Reading access code input field and connecting to Firebase
 
 function connect() {
-  var userID;
   //Authenticate user
-  firebase.auth().signInAnonymously().catch(function(error) { 
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    alert(errorMessage);
-  });
+  
 
-  firebase.auth().onAuthStateChanged(function(user) {
-    if (user) {
-      // User is signed in. //TODO test
-     this.userID = user.uid;
-      // ...
-   } else {
-     // User is signed out.
-     // ...
-  }
-  });
-  var access_code = $('#access').val().trim();
+  var access_code = $('#access').val().trim(); 
+  console.log(access_code)
   var ref = firebase.database().ref();
-  ref.child('sharing').child(userID) = access_code; //TODO test
+  var userNode = ref.child('sharing').child(this.userID).child(access_code).set(""); 
+  ref.child('sharing').child(this.userID).child(access_code).onDisconnect().remove();
 
-  ref.child('sharing').child(userID).onDisconnect().remove(() => { //TODO test
-    firebase.auth().signOut().then(function() {
-      console.log('Signed Out');
-      }, function(error) {
-      console.error('Sign Out Error', error);
-    });
-  });
   // Loads initial strokes (catch up with live version)
-  ref.once("value").then(function(snapshot) {
-    if( access_code != "" && snapshot.hasChild( access_code ) ) { //TODO replace with error code?
 
-      // console.log(snapshot.child(access_code).val());
+  ref.child(access_code).once("value").then(function(snapshot) {
 
       $('#splash').hide();
       $('#app').show();
-      init( snapshot.child(access_code).val() );
+      init( snapshot.val() ); 
 
-    } else {
-      alert('Not a valid access code. Please try again.');
-    }
   }, function (error) {
-    console.log("Error: " + error.code);
+    alert('Not a valid access code. Please try again.'); //TODO fix
   });
-
   const drawingObject = ref.child(access_code);
   const strokesList = drawingObject.child('strokes');
   const numAttrKeys = 4
@@ -82,8 +79,6 @@ function connect() {
       const r = snapshot.child("red").val();
       const g = snapshot.child("green").val();
       const b = snapshot.child("blue").val();
-      // const a = snapshot.child("opacity").val();
-      // const opacity = snapshot.child("brush_width").val();
       draw(fromX, fromY, toX, toY, r, g, b, 1, thickness);
 
     }
@@ -176,9 +171,6 @@ function draw( x1, y1, x2, y2, r, g, b, a, thickness ) {
   g = Math.round(g);
   b = Math.round(b);
 
-  console.log(r)
-  console.log(g)
-  console.log(b)
   ctx.strokeStyle = "rgba("+r+", "+g+", "+b+", "+a+")";
   ctx.lineWidth = thickness;
   ctx.lineTo(x2, y2);

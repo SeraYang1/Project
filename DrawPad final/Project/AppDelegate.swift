@@ -13,7 +13,7 @@ import FirebaseAuth
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
-    var userID: String!
+    var uid: String!
     var authRef: FirebaseAuth.Auth!
     
     override init() {
@@ -34,20 +34,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     return
                 }
                 print ("User logged in anonymously with uid: " + user!.uid)
-                self.userID = user!.uid
+                self.uid = user!.uid
                 
             })
             }
             else {
-                self.userID = authRef.currentUser!.uid
+                self.uid = authRef.currentUser!.uid
             }
             
             
             return true
     }
 
-    func getUserID () -> String {
-        return userID
+    func getUID() -> String {
+        return uid
     }
     
     func getAuthRef() -> FirebaseAuth.Auth {
