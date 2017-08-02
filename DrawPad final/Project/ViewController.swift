@@ -43,20 +43,10 @@ class ViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
 
-//        if (authRef.currentUser == nil) {         // Authenticate user
-//            print("no user")
-//            authRef.signInAnonymously(completion: { (user, error) in
-//                if error != nil {
-//                    print(error)
-//                    print("failed")
-//                    return
-//                }
-//                print ("User logged in anonymously with uid: " + user!.uid)
-//                self.userId = user!.uid
                 userId = appDelegate.getUserID()
-                let newUserRef = self.ref.child("users").child(self.userId)
-                newUserRef.setValue("ok") //TODO replace with password and figure out sign out.
-                
+//                let newUserRef = self.ref.child("users").child(self.userId)
+//                newUserRef.setValue("ok") //TODO replace with password and figure out sign out.
+        
                 
                 //passes the id to settings so it can be copied as access code
                 SettingsViewController.setCode(s: self.userId)
@@ -69,38 +59,35 @@ class ViewController: UIViewController {
                     self.ref.child(self.userId).child("screen_height").setValue(self.view.frame.height)
                     self.ref.child(self.userId).child("screen_width").setValue(self.view.frame.width)
                 }
-                self.ref.child("users").child(self.userId).onDisconnectRemoveValue()
-                self.ref.child(self.userId).onDisconnectRemoveValue()
+//                self.ref.child("users").child(self.userId).onDisconnectRemoveValue()
+        
+        //
+//        {
+//            "rules": {
+//                // ".write": true,
+//                // ".read": true
+//                "sharing": {
+//                    "$uid": {
+//                        ".write": "$uid === auth.uid",
+//                        ".read": "$uid === auth.uid"
+//                    }
+//                },
+//                "$uid": {
+//                    ".write": "$uid === auth.uid",
+//                    ".read": "$uid === auth.uid || root.child('sharing').child(auth.uid).child($uid).exists()"
+//                }
+//            }
+//        }
+
+        self.ref.child(self.userId).onDisconnectRemoveValue { (error, dbRef) in
+            self.appDelegate.getAuthRef().currentUser?.delete(completion: { (error) in
+                    print("deleted")
+                }) //TODO test
+                
+        }
                 self.strokeCount = 0
                 self.coordinateCount = 1
-                
-                
-//            })
-//            
-//        }
-//        else {//SHOULD NEVER REACH HERE
-//            print("Already signed in")
-//            do {
-//                try self.authRef.currentUser?.delete(completion: { (error) in
-//                    if (error != nil) {
-//                        print ("ERROR")
-//                    }
-//                    else {
-//                        print ("OK")
-//                    }
-//                }) //TODO add this code when end session is called
-//
-//            }
-//            catch {
-//                print("fail")
-//            }
-//            do {
-//                try authRef.signOut()
-//            }
-//            catch {
-//                print("Unable to sign out")
-//            }
-//        }
+
 
     }
     override func viewDidLoad() {
@@ -121,21 +108,15 @@ class ViewController: UIViewController {
         }
         
         (red, green, blue) = colors[index]
-        
-//        if index == colors.count - 1 {
-//            opacity = 1.0
-//        }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         strokeCount = strokeCount + 1
-        print("here")
         swiped = false
         if let touch = touches.first {
             lastPoint = touch.location(in: self.view)
         }
         self.ref.child(userId).child("strokes").child(String(strokeCount)).child("brush_width").setValue(brushWidth)
-//        self.ref.child(userId).child("strokes").child(String(strokeCount)).child("opacity").setValue(opacity)
         self.ref.child(userId).child("strokes").child(String(strokeCount)).child("red").setValue(red * 255)
         self.ref.child(userId).child("strokes").child(String(strokeCount)).child("green").setValue(green * 255)
         self.ref.child(userId).child("strokes").child(String(strokeCount)).child("blue").setValue(blue * 255)
@@ -216,7 +197,6 @@ class ViewController: UIViewController {
             let settingsViewController = segue.destination as! SettingsViewController
             settingsViewController.delegate = self
             settingsViewController.brush = brushWidth
-//            settingsViewController.opacity = opacity
             settingsViewController.red = red
             settingsViewController.green = green
             settingsViewController.blue = blue
@@ -236,7 +216,6 @@ class ViewController: UIViewController {
 extension ViewController: SettingsViewControllerDelegate {
     func settingsViewControllerFinished(_ settingsViewController: SettingsViewController) {
         self.brushWidth = settingsViewController.brush
-//        self.opacity = settingsViewController.opacity
         self.red = settingsViewController.red
         self.green = settingsViewController.green
         self.blue = settingsViewController.blue

@@ -1,5 +1,4 @@
 // Initialize Firebase
-
 (function() {
 
   const config = {
@@ -18,12 +17,38 @@
 // Reading access code input field and connecting to Firebase
 
 function connect() {
+  var userID;
+  //Authenticate user
+  firebase.auth().signInAnonymously().catch(function(error) { 
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    alert(errorMessage);
+  });
+
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+      // User is signed in. //TODO test
+     this.userID = user.uid;
+      // ...
+   } else {
+     // User is signed out.
+     // ...
+  }
+  });
   var access_code = $('#access').val().trim();
   var ref = firebase.database().ref();
+  ref.child('sharing').child(userID) = access_code; //TODO test
 
+  ref.child('sharing').child(userID).onDisconnect().remove(() => { //TODO test
+    firebase.auth().signOut().then(function() {
+      console.log('Signed Out');
+      }, function(error) {
+      console.error('Sign Out Error', error);
+    });
+  });
   // Loads initial strokes (catch up with live version)
   ref.once("value").then(function(snapshot) {
-    if( access_code != "" && snapshot.hasChild( access_code ) ) {
+    if( access_code != "" && snapshot.hasChild( access_code ) ) { //TODO replace with error code?
 
       // console.log(snapshot.child(access_code).val());
 
@@ -43,8 +68,6 @@ function connect() {
   const numAttrKeys = 4
  
   //Listens for realtime updates
-  //TODO clean up code. Global vars good practice? can I have the vars here above?
-  //Can track if stroke changed & adjust vars accordingly
   var strokeNo;
   var thickness;
   strokesList.on("child_changed", function(snapshot) {

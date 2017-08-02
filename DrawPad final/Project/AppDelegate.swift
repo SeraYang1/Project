@@ -14,6 +14,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     var userID: String!
+    var authRef: FirebaseAuth.Auth!
+    
     override init() {
         super.init()
         FirebaseApp.configure()
@@ -22,35 +24,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?)
         -> Bool {
-            let authRef = Auth.auth()
-            
-            if (authRef.currentUser != nil) {
-                do {
-                    try authRef.signOut()
-                }
-                catch {
-                    print ("fail")
-                }
-            }
-            
-            // Authenticate user
-            print("no user")
+            authRef = Auth.auth()
+
+
+            if (authRef.currentUser == nil) {
             authRef.signInAnonymously(completion: { (user, error) in
                 if error != nil {
-                    print(error)
                     print("failed")
                     return
                 }
                 print ("User logged in anonymously with uid: " + user!.uid)
-                self.userID = user!.uid //TODO pass user ID
+                self.userID = user!.uid
                 
             })
-
+            }
+            else {
+                self.userID = authRef.currentUser!.uid
+            }
+            
+            
             return true
     }
 
     func getUserID () -> String {
         return userID
+    }
+    
+    func getAuthRef() -> FirebaseAuth.Auth {
+        return authRef
     }
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
