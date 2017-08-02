@@ -48,7 +48,6 @@ class SettingsViewController: UIViewController, UINavigationControllerDelegate {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
     accessCode.text = SettingsViewController.generatedCode
     copiedTopBar.isHidden = true
     copyButton.layer.cornerRadius = 5
@@ -69,6 +68,14 @@ class SettingsViewController: UIViewController, UINavigationControllerDelegate {
     codeResetHeight.constant = height * CGFloat(0.1)
   }
 
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+    }
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+    }
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+    }
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.
@@ -101,9 +108,6 @@ class SettingsViewController: UIViewController, UINavigationControllerDelegate {
     if sender == sliderBrush {
       brush = CGFloat(sender.value)
       labelBrush.text = NSString(format: "%.2f", brush.native) as String
-    } else {
-//      opacity = CGFloat(sender.value)
-//      labelOpacity.text = NSString(format: "%.2f", opacity.native) as String
     }
      
     drawPreview()
@@ -130,8 +134,6 @@ class SettingsViewController: UIViewController, UINavigationControllerDelegate {
    
     sliderBrush.value = Float(brush)
     labelBrush.text = NSString(format: "%.1f", brush.native) as String
-//    sliderOpacity.value = Float(opacity)
-//    labelOpacity.text = NSString(format: "%.1f", opacity.native) as String
     sliderRed.value = Float(red * 255.0)
     labelRed.text = NSString(format: "%d", Int(sliderRed.value)) as String
     sliderGreen.value = Float(green * 255.0)

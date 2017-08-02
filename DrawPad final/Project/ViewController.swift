@@ -40,7 +40,8 @@
             (1.0, 1.0, 1.0),
             ]
         
-        override func viewWillAppear(_ animated: Bool) {
+        override func viewWillAppear(_ animated: Bool) { //TODO remove the thing if user id exists
+            if self.userId == nil {
             self.userId = self.ref.child("sharing").child(appDelegate.getUID()).childByAutoId().key //access code
             self.ref.child("sharing").child(appDelegate.getUID()).child(self.userId).setValue("")
             self.ref.child("sharing").child(appDelegate.getUID()).onDisconnectRemoveValue() //clean up after disconnected
@@ -61,6 +62,7 @@
             
             self.strokeCount = 0
             self.coordinateCount = 1
+            }
         }
         
         
