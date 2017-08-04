@@ -44,10 +44,10 @@ function login() {
 
     $('#splash').hide();
     $('#app').show();
-    init( snapshot.val() )
+    init( snapshot.val() );
 
   }, function (error) { //Logs in again, after user has been authenticated through Firebase
-    login()
+    login();
   });
 }
 
@@ -137,7 +137,7 @@ function init( data ) {
   }
   catch(err) {  // Error catching for access codes that don't exist
     alert("Invalid Access Code");
-    window.location.href='http://localhost:5000'
+    window.location.href='index.html';
   }
 }
 
