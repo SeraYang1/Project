@@ -42,8 +42,6 @@ var ref;
 function login() {
   ref.child(access_code).once("value").then(function(snapshot) {
 
-    $('#splash').hide();
-    $('#app').show();
     init( snapshot.val() );
 
   }, function (error) { //Logs in again, after user has been authenticated through Firebase
@@ -125,10 +123,14 @@ $('#close').click(function() {
 
 function init( data ) {
   try {
+
     var c = document.getElementById("canvas");
     c.height = data.screen_height;
     c.width = data.screen_width;
     reset();
+    
+    $('#splash').hide();
+    $('#app').show();
 
     var strokes = data.strokes;
     for ( var i = 1; i <= data.current_stroke; i++ ) {
@@ -137,7 +139,6 @@ function init( data ) {
   }
   catch(err) {  // Error catching for access codes that don't exist
     alert("Invalid Access Code");
-    window.location.href='index.html';
   }
 }
 
