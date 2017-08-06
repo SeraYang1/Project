@@ -39,29 +39,41 @@
             (1.0, 1.0, 0),
             (1.0, 1.0, 1.0),
             ]
+        var heights:[NSLayoutConstraint]!
+        @IBOutlet weak var height0: NSLayoutConstraint!
+        @IBOutlet weak var height1: NSLayoutConstraint!
+        @IBOutlet weak var height2: NSLayoutConstraint!
+        @IBOutlet weak var height3: NSLayoutConstraint!
+        @IBOutlet weak var height4: NSLayoutConstraint!
+        @IBOutlet weak var height5: NSLayoutConstraint!
+        @IBOutlet weak var height6: NSLayoutConstraint!
+        @IBOutlet weak var height7: NSLayoutConstraint!
+        @IBOutlet weak var height8: NSLayoutConstraint!
+        @IBOutlet weak var height9: NSLayoutConstraint!
         
         override func viewWillAppear(_ animated: Bool) { //TODO remove the thing if user id exists
+            heights = [height0, height1,height2,height3,height4,height5,height6,height7,height8,height9]
             if self.userId == nil {
-            self.userId = self.ref.child("sharing").child(appDelegate.getUID()).childByAutoId().key //access code
-            self.ref.child("sharing").child(appDelegate.getUID()).child(self.userId).setValue("")
-            self.ref.child("sharing").child(appDelegate.getUID()).onDisconnectRemoveValue() //clean up after disconnected
-            self.ref.child(self.userId).onDisconnectRemoveValue()
-            
-            //passes the id to settings so it can be copied as access code
-            SettingsViewController.setCode(s: self.userId)
-            
-            if UIDevice.current.orientation == UIDeviceOrientation.landscapeLeft || UIDevice.current.orientation == UIDeviceOrientation.landscapeRight {
-                self.ref.child(self.userId).child("screen_width").setValue(self.view.frame.height)
-                self.ref.child(self.userId).child("screen_height").setValue(self.view.frame.width)
-            }
-            else { //portrait
-                self.ref.child(self.userId).child("screen_height").setValue(self.view.frame.height)
-                self.ref.child(self.userId).child("screen_width").setValue(self.view.frame.width)
-            }
-            
-            
-            self.strokeCount = 0
-            self.coordinateCount = 1
+                self.userId = self.ref.child("sharing").child(appDelegate.getUID()).childByAutoId().key //access code
+                self.ref.child("sharing").child(appDelegate.getUID()).child(self.userId).setValue("")
+                self.ref.child("sharing").child(appDelegate.getUID()).onDisconnectRemoveValue() //clean up after disconnected
+                self.ref.child(self.userId).onDisconnectRemoveValue()
+                
+                //passes the id to settings so it can be copied as access code
+                SettingsViewController.setCode(s: self.userId)
+                
+                if UIDevice.current.orientation == UIDeviceOrientation.landscapeLeft || UIDevice.current.orientation == UIDeviceOrientation.landscapeRight {
+                    self.ref.child(self.userId).child("screen_width").setValue(self.view.frame.height)
+                    self.ref.child(self.userId).child("screen_height").setValue(self.view.frame.width)
+                }
+                else { //portrait
+                    self.ref.child(self.userId).child("screen_height").setValue(self.view.frame.height)
+                    self.ref.child(self.userId).child("screen_width").setValue(self.view.frame.width)
+                }
+                
+                
+                self.strokeCount = 0
+                self.coordinateCount = 1
             }
         }
         
@@ -69,6 +81,7 @@
         override func viewDidLoad() {
             super.viewDidLoad()
             
+            height0.constant = 45
         }
         
         
@@ -81,6 +94,15 @@
             var index = sender.tag ?? 0
             if index < 0 || index >= colors.count {
                 index = 0
+            }
+            
+            for x in 0..<heights.count {
+                if (x == index){
+                    heights[x].constant = 45
+                }
+                else{
+                    heights[x].constant = 30
+                }
             }
             
             (red, green, blue) = colors[index]
@@ -190,8 +212,16 @@
             self.red = settingsViewController.red
             self.green = settingsViewController.green
             self.blue = settingsViewController.blue
+            
+            for x in 0..<heights.count{
+                if(colors[x].0 == self.red && colors[x].1 == self.green && colors[x].2 == self.blue){
+                    heights[x].constant = 45
+                }else{
+                    heights[x].constant = 30
+                }
+            }
         }
-
+        
         func reset() {
             mainImageView.image = nil
             self.ref.child(userId).child("strokes").setValue(nil)
