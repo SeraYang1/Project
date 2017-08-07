@@ -6,7 +6,7 @@ Screensharing apps currently exist for desktop platforms but there are little to
 ### 1. Download from app_url
 
 ### 2. Share access code
-  &nbsp; &nbsp; &nbsp; &nbsp; Go to &nbsp; ![](https://github.com/SeraYang1/Project/blob/master/palette.png)
+  &nbsp; &nbsp; &nbsp; &nbsp; Go to &nbsp; <img src="https://github.com/SeraYang1/Project/blob/master/palette.png" height="36">
   <br> &nbsp; &nbsp; &nbsp; &nbsp; Copy access code: </br>
   <p align="center"> 
   <img src="https://github.com/SeraYang1/Project/blob/master/copyPage.png" height="500">
@@ -26,7 +26,7 @@ Screensharing apps currently exist for desktop platforms but there are little to
 
 ### iOS
 
-Incredibly easy to use, simply click on "New Project" then start drawing! Brush color and size can be changed by pressing on the &nbsp; ![](https://github.com/SeraYang1/Project/blob/master/palette.png)
+Incredibly easy to use, simply click on "New Project" then start drawing! Brush color and size can be changed by pressing on the &nbsp;  <img src="https://github.com/SeraYang1/Project/blob/master/palette.png" height="36">
 
 <p align="center"> 
 <img src="https://github.com/SeraYang1/Project/blob/master/iOS_home.png" height="400"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;   <img src="https://github.com/SeraYang1/Project/blob/master/drawpad.png" height="400">
