@@ -5,6 +5,7 @@
     //  Created by Jean-Pierre Distler on 13.11.14.
     //  Copyright (c) 2014 Ray Wenderlich. All rights reserved.
     //
+    //  Modified by Janice Chan, Sera Yang, Kenny Yuan as part of project Project in 2017
     
     import UIKit
     import FirebaseDatabase
@@ -51,7 +52,7 @@
         @IBOutlet weak var height8: NSLayoutConstraint!
         @IBOutlet weak var height9: NSLayoutConstraint!
         
-        override func viewWillAppear(_ animated: Bool) { //TODO remove the thing if user id exists
+        override func viewWillAppear(_ animated: Bool) {
             heights = [height0, height1,height2,height3,height4,height5,height6,height7,height8,height9]
             if self.userId == nil {
                 self.userId = self.ref.child("sharing").child(appDelegate.getUID()).childByAutoId().key //access code

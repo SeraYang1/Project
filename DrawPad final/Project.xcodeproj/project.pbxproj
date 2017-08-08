@@ -11,7 +11,6 @@
 		53975323014637AA15B431D8 /* Pods_Project.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6014B996EB308D350AC9B8E8 /* Pods_Project.framework */; };
 		78B4B8751A49DDAF002B004D /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78B4B8741A49DDAF002B004D /* SettingsViewController.swift */; };
 		D65A38501F26E0D400A0924B /* RotationLock.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65A384F1F26E0D400A0924B /* RotationLock.swift */; };
-		D6C02AF81F256C530021BAAB /* AccessCodePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C02AF71F256C530021BAAB /* AccessCodePage.swift */; };
 		D6F201C41F2902E300708494 /* IntroScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F201C31F2902E300708494 /* IntroScreen.swift */; };
 		EE43D4731A14A6F200311C06 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE43D4721A14A6F200311C06 /* AppDelegate.swift */; };
 		EE43D4751A14A6F200311C06 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE43D4741A14A6F200311C06 /* ViewController.swift */; };
@@ -37,7 +36,6 @@
 		6014B996EB308D350AC9B8E8 /* Pods_Project.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Project.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		78B4B8741A49DDAF002B004D /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		D65A384F1F26E0D400A0924B /* RotationLock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RotationLock.swift; sourceTree = "<group>"; };
-		D6C02AF71F256C530021BAAB /* AccessCodePage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessCodePage.swift; sourceTree = "<group>"; };
 		D6F201C31F2902E300708494 /* IntroScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntroScreen.swift; sourceTree = "<group>"; };
 		EE43D46D1A14A6F200311C06 /* Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Project.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE43D4711A14A6F200311C06 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -113,7 +111,6 @@
 				D65A384F1F26E0D400A0924B /* RotationLock.swift */,
 				EE43D4761A14A6F200311C06 /* Main.storyboard */,
 				D6F201C31F2902E300708494 /* IntroScreen.swift */,
-				D6C02AF71F256C530021BAAB /* AccessCodePage.swift */,
 				EE43D4791A14A6F200311C06 /* Images.xcassets */,
 				EE43D47B1A14A6F200311C06 /* LaunchScreen.xib */,
 				EE43D4701A14A6F200311C06 /* Supporting Files */,
@@ -287,7 +284,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				EE43D4751A14A6F200311C06 /* ViewController.swift in Sources */,
-				D6C02AF81F256C530021BAAB /* AccessCodePage.swift in Sources */,
 				EE43D4731A14A6F200311C06 /* AppDelegate.swift in Sources */,
 				D65A38501F26E0D400A0924B /* RotationLock.swift in Sources */,
 				D6F201C41F2902E300708494 /* IntroScreen.swift in Sources */,

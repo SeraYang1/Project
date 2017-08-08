@@ -1,3 +1,5 @@
+//  Modified by Janice Chan, Sera Yang, Kenny Yuan as part of project Project in 2017
+
 import UIKit
 
 protocol SettingsViewControllerDelegate: class {

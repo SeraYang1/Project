@@ -5,6 +5,7 @@
 //  Created by Jean-Pierre Distler on 13.11.14.
 //  Copyright (c) 2014 Ray Wenderlich. All rights reserved.
 //
+//  Modified by Janice Chan, Sera Yang, Kenny Yuan as part of project Project in 2017
 
 import UIKit
 import Firebase
