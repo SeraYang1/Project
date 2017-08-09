@@ -12,8 +12,8 @@ Screensharing apps currently exist for desktop platforms but there are little to
   <img src="https://github.com/SeraYang1/Project/blob/master/copyPage.png" height="500">
   </p>
   
-### 3. View on web_url
-  &nbsp; &nbsp; &nbsp; &nbsp;Go to web_url 
+### 3. View on http://www.prject.co.nf
+  &nbsp; &nbsp; &nbsp; &nbsp;Go to http://www.prject.co.nf
   <br> &nbsp; &nbsp; &nbsp; &nbsp; Click on Projector to go to access code page</br>
   &nbsp; &nbsp; &nbsp; &nbsp; Paste in access code
   <br> &nbsp; &nbsp; &nbsp; &nbsp; Start viewing! </br>
