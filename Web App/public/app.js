@@ -108,8 +108,8 @@ function connect() {
 // Opening animation
 
 $('#icon').click(function() {
-  $('#icon').hide();
-  $('#intro').show();
+  $('#icon').fadeOut('slow');
+  $('#intro').fadeIn('slow');
 });
 
 // Close button on the canvas
