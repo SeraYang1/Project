@@ -165,7 +165,7 @@ class SettingsViewController: UIViewController, UINavigationControllerDelegate {
         timer = Timer.scheduledTimer(timeInterval: 1, target: self,   selector: (#selector(copiedDisappear)), userInfo: nil, repeats: true)
     }
     
-    @objc func copiedDisappear(){
+    func copiedDisappear(){
         time = time + 1
         if(time == 2){
             copiedTopBar.isHidden = true
