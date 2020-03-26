@@ -55,21 +55,23 @@
         override func viewWillAppear(_ animated: Bool) {
             heights = [height0, height1,height2,height3,height4,height5,height6,height7,height8,height9]
             if self.userId == nil {
-                self.userId = self.ref.child("sharing").child(appDelegate.getUID()).childByAutoId().key //access code
+                self.userId = self.ref.child("data").childByAutoId().key
+                self.ref.child("data").child(self.userId).setValue("") // guarantees unique access code
                 self.ref.child("sharing").child(appDelegate.getUID()).child(self.userId).setValue("")
-                self.ref.child("sharing").child(appDelegate.getUID()).onDisconnectRemoveValue() //clean up after disconnected
-                self.ref.child(self.userId).onDisconnectRemoveValue()
+                
+                 //clean up after disconnected
+                self.ref.child("data").child(self.userId).onDisconnectRemoveValue(completionBlock: {_,_ in self.ref.child("sharing").child(self.appDelegate.getUID()).onDisconnectRemoveValue()})
                 
                 //passes the id to settings so it can be copied as access code
                 SettingsViewController.setCode(s: self.userId)
                 
                 if UIDevice.current.orientation == UIDeviceOrientation.landscapeLeft || UIDevice.current.orientation == UIDeviceOrientation.landscapeRight {
-                    self.ref.child(self.userId).child("screen_width").setValue(self.view.frame.height)
-                    self.ref.child(self.userId).child("screen_height").setValue(self.view.frame.width)
+                    self.ref.child("data").child(self.userId).child("screen_width").setValue(self.view.frame.height)
+                    self.ref.child("data").child(self.userId).child("screen_height").setValue(self.view.frame.width)
                 }
                 else { //portrait
-                    self.ref.child(self.userId).child("screen_height").setValue(self.view.frame.height)
-                    self.ref.child(self.userId).child("screen_width").setValue(self.view.frame.width)
+                    self.ref.child("data").child(self.userId).child("screen_height").setValue(self.view.frame.height)
+                    self.ref.child("data").child(self.userId).child("screen_width").setValue(self.view.frame.width)
                 }
                 
                 
@@ -115,14 +117,14 @@
             if let touch = touches.first {
                 lastPoint = touch.location(in: self.view)
             }
-            self.ref.child(userId).child("strokes").child(String(strokeCount)).child("brush_width").setValue(brushWidth)
-            self.ref.child(userId).child("strokes").child(String(strokeCount)).child("red").setValue(red * 255)
-            self.ref.child(userId).child("strokes").child(String(strokeCount)).child("green").setValue(green * 255)
-            self.ref.child(userId).child("strokes").child(String(strokeCount)).child("blue").setValue(blue * 255)
+            self.ref.child("data").child(userId).child("strokes").child(String(strokeCount)).child("brush_width").setValue(brushWidth)
+            self.ref.child("data").child(userId).child("strokes").child(String(strokeCount)).child("red").setValue(red * 255)
+            self.ref.child("data").child(userId).child("strokes").child(String(strokeCount)).child("green").setValue(green * 255)
+            self.ref.child("data").child(userId).child("strokes").child(String(strokeCount)).child("blue").setValue(blue * 255)
             
             
-            self.ref.child(userId).child("strokes").child(String(strokeCount)).child("x".appending(String(coordinateCount))).setValue(Float(lastPoint.x))
-            self.ref.child(userId).child("strokes").child(String(strokeCount)).child("y".appending(String(coordinateCount))).setValue(Float(lastPoint.y))
+            self.ref.child("data").child(userId).child("strokes").child(String(strokeCount)).child("x".appending(String(coordinateCount))).setValue(Float(lastPoint.x))
+            self.ref.child("data").child(userId).child("strokes").child(String(strokeCount)).child("y".appending(String(coordinateCount))).setValue(Float(lastPoint.y))
             coordinateCount = coordinateCount + 1
         }
         
@@ -163,8 +165,8 @@
                 // 7
                 lastPoint = currentPoint
             }
-            self.ref.child(userId).child("strokes").child(String(strokeCount)).child("x".appending(String(coordinateCount))).setValue(Float(lastPoint.x))
-            self.ref.child(userId).child("strokes").child(String(strokeCount)).child("y".appending(String(coordinateCount))).setValue(Float(lastPoint.y))
+            self.ref.child("data").child(userId).child("strokes").child(String(strokeCount)).child("x".appending(String(coordinateCount))).setValue(Float(lastPoint.x))
+            self.ref.child("data").child(userId).child("strokes").child(String(strokeCount)).child("y".appending(String(coordinateCount))).setValue(Float(lastPoint.y))
             coordinateCount = coordinateCount + 1
             
         }
@@ -183,7 +185,7 @@
             UIGraphicsEndImageContext()
             
             tempImageView.image = nil
-            self.ref.child(userId).child("current_stroke").setValue(strokeCount) //last one saved in db
+            self.ref.child("data").child(userId).child("current_stroke").setValue(strokeCount) //last one saved in db
             coordinateCount = 1         //resets in preparation for next batch of coord data
             
         }
@@ -225,10 +227,10 @@
         
         func reset() {
             mainImageView.image = nil
-            self.ref.child(userId).child("strokes").setValue(nil)
+            self.ref.child("data").child(userId).child("strokes").setValue(nil)
             strokeCount = 0
             
-            self.ref.child(userId).child("current_stroke").setValue(strokeCount)
+            self.ref.child("data").child(userId).child("current_stroke").setValue(strokeCount)
         }
     }
     

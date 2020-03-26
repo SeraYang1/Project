@@ -23,30 +23,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     }
     func application(_ application: UIApplication,
-                     didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?)
+                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?)
         -> Bool {
             authRef = Auth.auth()
 
 
             if (authRef.currentUser == nil) {
-            authRef.signInAnonymously(completion: { (user, error) in
-                if error != nil {
-                    print("failed")
-                    return
-                }
-                print ("User logged in anonymously with uid: " + user!.uid)
-                self.uid = user!.uid
-                
-            })
+                signIn()
             }
             else {
-                self.uid = authRef.currentUser!.uid
+                // delete current user & sign in
+                deleteUser()
+                signIn()
             }
-            
             
             return true
     }
 
+    func signIn() {
+        authRef.signInAnonymously(completion: { (user, error) in
+            if error != nil {
+                print("failed")
+                return
+            }
+            print ("User logged in anonymously with uid: " + user!.uid)
+            self.uid = user!.uid
+            
+        })
+    }
+
+    func deleteUser() {
+        authRef.currentUser?.delete()
+        print("User deleted")
+    }
     func getUID() -> String {
         return uid
     }
@@ -74,6 +83,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        deleteUser()
     }
 
 }

@@ -40,7 +40,7 @@ var ref;
 
 // Reading access code input field and connecting to Firebase
 function login() {
-  ref.child(access_code).once("value").then(function(snapshot) {
+  ref.child('data').child(access_code).once("value").then(function(snapshot) {
 
     init( snapshot.val() );
 
@@ -62,7 +62,7 @@ function connect() {
   // Loads initial strokes (catch up with live version)
 
   this.login()
-  const drawingObject = ref.child(access_code);
+  const drawingObject = ref.child('data').child(access_code);
   const strokesList = drawingObject.child('strokes');
   const numAttrKeys = 4
 
@@ -97,7 +97,7 @@ function connect() {
   });
 
   // Listens for reset event
-  ref.child(access_code).on("child_removed", function(snapshot) {
+  ref.child('data').child(access_code).on("child_removed", function(snapshot) {
     if (snapshot.key == "strokes") {
       reset();
     }
