@@ -13,7 +13,6 @@ class InstructionPage: UIViewController{
     @IBOutlet weak var instructionsTopSpace: NSLayoutConstraint!
     
     override func viewDidLoad() {
-        self.modalPresentationStyle = .fullScreen
         var height = UIScreen.main.bounds.height
         if(UIScreen.main.bounds.width > height){
             height = UIScreen.main.bounds.width

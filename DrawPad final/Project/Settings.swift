@@ -48,7 +48,6 @@ class Settings: UIViewController, UINavigationControllerDelegate {
     }
   
   override func viewDidLoad() {
-    self.modalPresentationStyle = .fullScreen
     super.viewDidLoad()
     accessCode.text = Settings.generatedCode
     copiedTopBar.isHidden = true

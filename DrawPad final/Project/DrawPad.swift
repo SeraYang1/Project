@@ -11,7 +11,7 @@
     import FirebaseDatabase
     import FirebaseAuth
     
-    class ViewController: UIViewController {
+    class DrawPad: UIViewController {
         
         @IBOutlet weak var mainImageView: UIImageView!
         @IBOutlet weak var tempImageView: UIImageView!
@@ -63,7 +63,7 @@
                 self.ref.child("data").child(self.userId).onDisconnectRemoveValue(completionBlock: {_,_ in self.ref.child("sharing").child(self.appDelegate.getUID()).onDisconnectRemoveValue()})
                 
                 //passes the id to settings so it can be copied as access code
-                SettingsViewController.setCode(s: self.userId)
+                Settings.setCode(s: self.userId)
                 
                 if UIDevice.current.orientation == UIDeviceOrientation.landscapeLeft || UIDevice.current.orientation == UIDeviceOrientation.landscapeRight {
                     self.ref.child("data").child(self.userId).child("screen_width").setValue(self.view.frame.height)
@@ -78,6 +78,7 @@
                 self.strokeCount = 0
                 self.coordinateCount = 1
             }
+            
         }
         
         
@@ -193,7 +194,7 @@
         
         override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
             if(segue.identifier == "settings"){
-                let settingsViewController = segue.destination as! SettingsViewController
+                let settingsViewController = segue.destination as! Settings
                 settingsViewController.delegate = self
                 settingsViewController.brush = brushWidth
                 settingsViewController.red = red
@@ -209,8 +210,8 @@
         
     }
     
-    extension ViewController: SettingsViewControllerDelegate {
-        func settingsViewControllerFinished(_ settingsViewController: SettingsViewController) {
+    extension DrawPad: SettingsViewControllerDelegate {
+        func settingsViewControllerFinished(_ settingsViewController: Settings) {
             self.brushWidth = settingsViewController.brush
             self.red = settingsViewController.red
             self.green = settingsViewController.green
